@@ -2,7 +2,10 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
-
+    <router-link v-if="$auth.isAuthenticated" to="/profile">App</router-link>
+    <br>
+    <router-link to="/">Home</router-link>
+    <router-link to="/about">About</router-link>
     <!-- Check that the SDK client is not currently loading before accessing is methods -->
     <div v-if="!$auth.loading">
       <!-- show login when not authenticated -->

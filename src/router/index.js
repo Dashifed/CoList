@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Profile from "../views/Profile.vue";
 import ProfileToday from "../views/ProfileToday.vue";
 import ProfileTomorrow from "../views/ProfileTomorrow.vue";
+import ProfileAll from "../views/ProfileAll.vue"
 import { authGuard } from "../auth/authGuard";
 
 Vue.use(VueRouter)
@@ -28,6 +29,10 @@ const routes = [
     component: Profile,
     beforeEnter: authGuard,
     children: [
+    {
+      path: '',
+      component: ProfileAll
+    },
     {
       path: 'today',
       component: ProfileToday

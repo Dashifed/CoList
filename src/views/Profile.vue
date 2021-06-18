@@ -1,7 +1,13 @@
 <template>
   <div>
+    <div id="nav" v-if="$auth.isAuthenticated">
+      <span class="material-icons md-24">menu</span>
+    </div>
     <div id="sidebar">
       <div class="sidebar-content">
+        <div class="sidebar-tile">
+          <div class="sidebar-title"><router-link class="sidebar-name" to="/profile"><div class="sidebar-name">All</div></router-link></div>
+        </div>
         <div class="sidebar-tile">
           <div class="sidebar-title"><router-link class="sidebar-name" to="/profile/today"><div class="sidebar-name">Today</div></router-link></div>
         </div>
@@ -10,19 +16,34 @@
         </div>
       </div>
     </div>
-    <div>
-      <img :src="$auth.user.picture">
-      <h2>{{ $auth.user.name }}</h2>
-      <p>{{ $auth.user.email }}</p>
-    </div>
-    <div>
-      <pre>{{ JSON.stringify($auth.user, null, 2) }}</pre>
-    </div>
     <div><router-view></router-view></div>
   </div>
 </template>
 <style>
+.material-icons{ 
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+#nav {
+  display: flex;
+  height: 40px;
+  align-items: space-between;
+  line-height: 40px;
+  background-color: #506578;
+  padding-left: 35px;
+  padding-right: 35px;
+  align-items: center;
+}
 
+#nav a {
+  font-weight: bold;
+  color: #42b983;
+  text-decoration: none;
+}
 #sidebar {
   background: #fafafa;
   transition: box-shadow 300ms ease-in 0s;

@@ -1,12 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link v-if="$auth.isAuthenticated" to="/profile"
-        >Profile</router-link
-      >
-    </div>
     <router-view />
   </div>
 </template>
@@ -22,19 +15,7 @@
   height: 100%;
 }
 
-#nav {
-  display: flex;
-  height: 40px;
-  align-items: space-between;
-  background-color: #506578;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
+/*#nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>
