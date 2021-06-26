@@ -18,20 +18,42 @@
     </div>
     <div id="main-area">
       <button id="new-todo" class="todo-button" v-on:click="isHidden = true" v-if="!isHidden">Add task</button>
-      <input id="input-newtodo" @keyup.esc="isHidden = false" v-if="isHidden"/>
+      <input ref="input" id="input-newtodo" @keyup.esc="isHidden = false" @keyup.enter="createTodo" v-if="isHidden"/>
       <button id="cancel-todo" class="todo-button" v-on:click="isHidden = false" v-if="isHidden">Cancel</button>
       <router-view></router-view>
+      <ul class="task-list-items">
+        <li v-for="item in ToDoItems" :key="item.id" class="task-list-item">
+          <to-do :label="item.label" :id="item.id" :done="item.done"></to-do>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
+import uniqueId from 'lodash.uniqueid';
+import ToDo from "../components/ToDo.vue";
 export default {
+  components: {
+    ToDo
+  },
   data() {
     return {
     isHidden: false,
-    toggle: true
-    }
+    toggle: true,
+    ToDoItems: []
+    };
   },
+  methods: {
+    createTodo() {
+      const data = this.$refs.input.value;
+      if (data !== "") {
+        this.ToDoItems.push({id: uniqueId('todo-'), label: data, done: false});
+        this.isHidden = false;
+        axios.post("http://localhost:3000/profile", {data});
+      }
+    }
+  }
 }
 
 </script>
@@ -70,6 +92,12 @@ export default {
   margin: 0;
   box-sizing: border-box;
   position: absolute;
+  z-index: 100;
+}
+#sidebar-toggle {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 a.router-link-exact-active {
   background: #ececec;
@@ -121,5 +149,21 @@ a.router-link-exact-active {
 }
 #cancel-todo {
   cursor: pointer;
+}
+.task-list-items {
+  
+}
+.task-list-item {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  width: 50vw;
+  height: 50px;
+  font-size: 14px;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  cursor: pointer;
+  outline: none;
+  border-bottom: 1px solid #f0f0f0;
+  z-index: 50;
 }
 </style>
