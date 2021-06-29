@@ -2,7 +2,7 @@
   <form @submit.prevent="onSubmit">
     <h2 class="label-wrapper">
       <label for="new-todo-input" class="label__lg">
-        What needs to be done?
+        What task is on your mind?
       </label>
     </h2>
     <input

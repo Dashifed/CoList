@@ -17,41 +17,45 @@
       </div>
     </div>
     <div id="main-area">
-      <button id="new-todo" class="todo-button" v-on:click="isHidden = true" v-if="!isHidden">Add task</button>
-      <input ref="input" id="input-newtodo" @keyup.esc="isHidden = false" @keyup.enter="createTodo" v-if="isHidden"/>
-      <button id="cancel-todo" class="todo-button" v-on:click="isHidden = false" v-if="isHidden">Cancel</button>
+      <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
       <ul class="task-list-items">
-        <li v-for="item in ToDoItems" :key="item.id" class="task-list-item">
-          <to-do :label="item.label" :id="item.id" :done="item.done"></to-do>
-        </li>
+        <to-do v-for="(item, index) in ToDoItems" 
+        :id="item.id" :label="item.label" 
+        :key="item.id" :done="item.done" 
+        @remove="removeTodo(index)"  
+        @item-edited="editToDo(item.id, $event)" 
+        class="task-list-item"></to-do>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+//import axios from "axios";
 import uniqueId from 'lodash.uniqueid';
 import ToDo from "../components/ToDo.vue";
+import ToDoForm from '../components/ToDoForm';
 export default {
   components: {
-    ToDo
+    ToDo,
+    ToDoForm
   },
   data() {
     return {
-    isHidden: false,
     toggle: true,
     ToDoItems: []
     };
   },
   methods: {
-    createTodo() {
-      const data = this.$refs.input.value;
-      if (data !== "") {
-        this.ToDoItems.push({id: uniqueId('todo-'), label: data, done: false});
-        this.isHidden = false;
-        axios.post("http://localhost:3000/profile", {data});
-      }
+    addToDo(toDoLabel) {
+      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false});
+    },
+    removeTodo(index) {
+      this.ToDoItems.splice(index, 1);
+    },
+    editToDo(toDoId, newLabel) {
+      const toDoToEdit = this.ToDoItems.find(item => item.id === toDoId);
+      toDoToEdit.label = newLabel;
     }
   }
 }
@@ -131,27 +135,10 @@ a.router-link-exact-active {
   cursor: pointer;
   border-radius: 5px;
 }
-#new-todo {
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-  background: #ececec;
-  color: #c4c4c4;
-  border-radius: 10px;
-  width: 50vw;
-  height: 5vh;
-  padding: 10px;
-  text-align: left;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-#cancel-todo {
-  cursor: pointer;
-}
 .task-list-items {
-  
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
 .task-list-item {
   display: flex;
