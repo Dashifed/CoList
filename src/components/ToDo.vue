@@ -1,5 +1,14 @@
 <template>
   <div v-if="!isEditing">
+    <div class="custom-checkbox">
+      <input
+        type="checkbox"
+        class="checkbox"
+        :id="id"
+        :checked="isDone"
+        @change="$emit('checkbox-changed')"
+      />
+    </div>
     <label :for="id">
       {{ label }}
       <button type="button" @click="deleteToDo">Delete</button>

@@ -20,13 +20,26 @@
       <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
       <ul class="task-list-items">
-        <to-do v-for="(item, index) in ToDoItems" 
+        <to-do v-for="(item, index) in itemsFilter" 
         :id="item.id" :label="item.label" 
         :key="item.id" :done="item.done" 
+        @checkbox-changed="updateDoneStatus(item.id)"
         @remove="removeTodo(index)"  
         @item-edited="editToDo(item.id, $event)" 
         class="task-list-item"></to-do>
       </ul>
+      <div class="completed-items">
+        <h1>Completed</h1>
+        <ul class="task-list-items">
+          <to-do v-for="(item, index) in itemsNotFilter" 
+          :id="item.id" :label="item.label" 
+          :key="item.id" :done="item.done" 
+          @checkbox-changed="updateDoneStatus(item.id)"
+          @remove="removeTodo(index)"  
+          @item-edited="editToDo(item.id, $event)" 
+          class="task-list-item"></to-do>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +63,10 @@ export default {
     addToDo(toDoLabel) {
       this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false});
     },
+    updateDoneStatus(toDoId) {
+      const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
+      toDoToUpdate.done = !(toDoToUpdate.done)
+    },
     removeTodo(index) {
       this.ToDoItems.splice(index, 1);
     },
@@ -57,6 +74,14 @@ export default {
       const toDoToEdit = this.ToDoItems.find(item => item.id === toDoId);
       toDoToEdit.label = newLabel;
     }
+  },
+  computed: {
+    itemsFilter() {
+      return this.ToDoItems.filter((item) => !item.done);
+    },
+    itemsNotFilter() {
+      return this.ToDoItems.filter((item) => item.done);
+    },
   }
 }
 
