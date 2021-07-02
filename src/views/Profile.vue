@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="nav" v-if="$auth.isAuthenticated">
+    <div id="nav">
       <span class="material-icons md-24" id="sidebar-toggle" v-on:click="toggle = !toggle">menu</span>
     </div>
     <div id="sidebar" v-show="toggle">

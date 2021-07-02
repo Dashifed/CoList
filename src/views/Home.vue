@@ -6,6 +6,7 @@
     <br>
     <router-link to="/">Home</router-link>
     <router-link to="/about">About</router-link>
+    <router-link v-if="$auth.isAuthenticated" to="/lists">Lists</router-link>
     <!-- Check that the SDK client is not currently loading before accessing is methods -->
     <div v-if="!$auth.loading">
       <!-- show login when not authenticated -->
