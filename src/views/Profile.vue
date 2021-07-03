@@ -164,6 +164,7 @@ a.router-link-exact-active {
   display: grid;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 .task-list-item {
   display: flex;

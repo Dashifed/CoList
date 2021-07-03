@@ -36,6 +36,7 @@ export default {
     label: { required: true, type: String },
     done: { default: false, type: Boolean },
     id: { required: true, type: String },
+    list: {required: true, type: String},
   },
   data() {
     return {
