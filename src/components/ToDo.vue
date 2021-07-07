@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isEditing">
+  <div v-if="!isEditing" ref="editButton" @click="toggleToDoEdit">
     <div class="custom-checkbox">
       <input
         type="checkbox"
@@ -12,9 +12,6 @@
     <label :for="id">
       {{ label }}
       <button type="button" @click="deleteToDo">Delete</button>
-      <button type="button" ref="editButton" @click="toggleToDoEdit">
-        Edit
-      </button>
     </label>
   </div>
   <to-do-edit

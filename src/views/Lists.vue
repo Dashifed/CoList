@@ -35,12 +35,13 @@ html, body {
   scroll-snap-type: x mandatory;
   overflow-x: scroll;
   display: flex;
-  margin: 20px;
+  margin-top: 20px;
 }.slide {
   scroll-snap-align: start;
-  min-width: 40vw;
+  min-width: 100vw;
   max-height: 80vh;
-  margin-right: 50px;
+  margin-left: 10vw;
+  margin-right: 10vw;
   display: flex;
   text-align: center;
   justify-content: center;

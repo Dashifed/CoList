@@ -34,6 +34,7 @@
           <to-do v-for="(item, index) in itemsNotFilter" 
           :id="item.id" :label="item.label" 
           :key="item.id" :done="item.done" 
+          :list="item.list"
           @checkbox-changed="updateDoneStatus(item.id)"
           @remove="removeTodo(index)"  
           @item-edited="editToDo(item.id, $event)" 
@@ -61,7 +62,7 @@ export default {
   },
   methods: {
     addToDo(toDoLabel) {
-      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false});
+      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false, list: toDoLabel});
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
@@ -88,7 +89,6 @@ export default {
 </script>
 <style>
 .material-icons{ 
-  color: rgba(255, 255, 255, 1);
   cursor: pointer;
 }
 .material-icons.md-18 { font-size: 18px; }

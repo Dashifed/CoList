@@ -86,9 +86,8 @@ export default {
   width: 50vw;
   height: 80vh;
   padding: 20px;
-  background-color: 2rem 2rem 5rem rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
   border-radius: 1rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
 }
 .list-items {

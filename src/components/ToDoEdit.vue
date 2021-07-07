@@ -7,6 +7,7 @@
       type="text"
       autocomplete="off"
       @keyup.enter="onSubmit"
+      @keyup.esc="onCancel"
       v-model.lazy.trim="newLabel"
       />
     </div>
