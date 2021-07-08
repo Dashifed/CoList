@@ -1,21 +1,23 @@
 <template>
   <form @submit.prevent="onSubmit" class="main-form">
     <div v-if="isNotListsView()">
-      <span class="list-toggle material-icons md-24" v-on:click="listToggle = !listToggle"
-        >expand_more</span
+      <select
+        v-model="selected"
+        class="lists-holder list-toggle material-icons md-24"
       >
-    </div>
-    <div class="lists-holder" v-show="listToggle">
-      <div
-        class="list-item"
-        v-for="list in Lists"
-        :key="list.id"
-        :name="list.name"
-        :id="list.id"
-        @click="assignList(list)"
-      >
-        {{ list.name }}
-      </div>
+        expand_more
+        <option
+          class="list-item"
+          v-for="list in Lists"
+          :key="list.id"
+          :name="list.name"
+          :id="list.id"
+          :value="list.name"
+        >
+          {{ list.name }}
+        </option>
+      </select>
+      <div v-if="selected">Selected: {{ selected }}</div>
     </div>
     <input
       type="text"
@@ -39,22 +41,20 @@ export default {
       if (this.label === "") {
         return;
       }
-      this.$emit("todo-added", this.label);
+      this.$emit("todo-added", { label: this.label, list: this.selected });
       this.label = "";
     },
     isNotListsView() {
       return this.$router.history.current["path"] !== "/lists";
     },
-    assignList(list) {
-      this.$emit("list-assigned", list.name);
-      this.listToggle = false;
-    },
   },
   data() {
     return {
       label: "",
+      selected: "",
       listToggle: false,
       Lists: [
+        { id: 0, name: "" },
         { id: 1, name: "example" },
         { id: 2, name: "item" },
       ],
@@ -94,19 +94,19 @@ export default {
   justify-content: center;
   text-align: center;
   display: grid;
-  position: absolute;
-  min-width: 30vw;
-  max-width: 40vw;
   max-height: 15vh;
   border-radius: 5px;
   border: 1px solid black;
-  left: 10vw;
-  top: 120px;
   z-index: 100;
   background: #fff;
   overflow-y: auto;
 }
 .list-toggle {
+  display: flex;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;

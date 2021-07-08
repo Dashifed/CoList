@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     addToDo(toDoLabel) {
-      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false, list: this.name});
+      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel.label, done: false, list: this.name});
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);

@@ -23,6 +23,7 @@
         <to-do v-for="(item, index) in itemsFilter" 
         :id="item.id" :label="item.label" 
         :key="item.id" :done="item.done" 
+        :list="item.list"
         @checkbox-changed="updateDoneStatus(item.id)"
         @remove="removeTodo(index)"  
         @item-edited="editToDo(item.id, $event)" 
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     addToDo(toDoLabel) {
-      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false, list: toDoLabel});
+      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel.label, done: false, list: toDoLabel.list});
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
