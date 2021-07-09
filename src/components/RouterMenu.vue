@@ -23,8 +23,9 @@ export default {
   },
   mounted() {
     this._keyListener = function(e) {
-      if (e.key === "m") {
-        e.preventDefault(); // present "Save Page" from getting triggered.
+      const inputs = [...document.querySelectorAll("input")];
+      const focusedInput = inputs.includes(document.activeElement);
+        if (e.key === "m" && focusedInput === false) {
           this.openMenu();
         }
     };
