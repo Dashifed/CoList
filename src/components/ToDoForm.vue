@@ -17,7 +17,6 @@
           {{ list.name }}
         </option>
       </select>
-      <div v-if="selected">Selected: {{ selected }}</div>
     </div>
     <input
       type="text"
@@ -52,7 +51,6 @@ export default {
     return {
       label: "",
       selected: "",
-      listToggle: false,
       Lists: [
         { id: 0, name: "" },
         { id: 1, name: "example" },

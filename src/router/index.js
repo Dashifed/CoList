@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Profile from "../views/Profile.vue";
-import ProfileToday from "../views/ProfileToday.vue";
-import ProfileTomorrow from "../views/ProfileTomorrow.vue";
 import ProfileAll from "../views/ProfileAll.vue"
 import { authGuard } from "../auth/authGuard";
 
@@ -38,14 +36,6 @@ const routes = [
     {
       path: '',
       component: ProfileAll
-    },
-    {
-      path: 'today',
-      component: ProfileToday
-    },
-    {
-      path: 'tomorrow',
-      component: ProfileTomorrow
     }
   ]
   }

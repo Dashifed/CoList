@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-menu></router-menu>
     <list-form @list-added="createList"></list-form>
     <div class="slide-container">
       <list v-for="item in Lists" :key="item.key" :id="item.id" :name="item.name" class="slide"></list>
@@ -10,10 +11,12 @@
 import uniqueId from "lodash.uniqueid";
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
+import RouterMenu from '../components/RouterMenu.vue'
 export default {
   components: {
     List,
-    ListForm
+    ListForm,
+    RouterMenu
   },
   data() {
     return {
