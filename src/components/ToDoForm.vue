@@ -3,7 +3,7 @@
     <div v-if="isNotListsView()">
       <select
         v-model="selected"
-        class="lists-holder list-toggle material-icons md-24"
+        class="lists-holder list-toggle"
       >
         expand_more
         <option
@@ -101,7 +101,8 @@ export default {
 }
 .list-toggle {
   display: flex;
-  width: 40px;
+  width: 60px;
+  height: 40px;
   align-items: center;
   justify-content: center;
   text-align: center;

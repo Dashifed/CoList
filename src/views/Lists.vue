@@ -1,5 +1,6 @@
 <template>
   <div>
+    <app-navigation></app-navigation>
     <router-menu></router-menu>
     <list-form @list-added="createList"></list-form>
     <div class="slide-container">
@@ -11,12 +12,14 @@
 import uniqueId from "lodash.uniqueid";
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
-import RouterMenu from '../components/RouterMenu.vue'
+import RouterMenu from '../components/RouterMenu.vue';
+import AppNavigation from '../components/AppNavigation.vue';
 export default {
   components: {
     List,
     ListForm,
-    RouterMenu
+    RouterMenu,
+    AppNavigation
   },
   data() {
     return {

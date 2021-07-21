@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Profile from "../views/Profile.vue";
-import ProfileAll from "../views/ProfileAll.vue"
+import HomePage from "../views/HomePage.vue";
 import { authGuard } from "../auth/authGuard";
 
 Vue.use(VueRouter)
@@ -10,8 +9,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HomePage',
+    component: HomePage
   },
   {
     path: '/about',
@@ -28,16 +27,10 @@ const routes = [
     component: () => import('../views/Lists.vue')
   },
   {
-    path: "/profile",
-    name: "profile",
-    component: Profile,
-    beforeEnter: authGuard,
-    children: [
-    {
-      path: '',
-      component: ProfileAll
-    }
-  ]
+    path: "/home",
+    name: "Home",
+    component: Home,
+    beforeEnter: authGuard
   }
 ]
 

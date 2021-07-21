@@ -2,7 +2,7 @@
   <div>
     <div id="router-menu" class="animate__animated animate__bounceIn" v-show="showMenu">
       <div class="menu-items">
-        <router-link class="menu-item" to="/profile">Home</router-link>
+        <router-link class="menu-item" to="/home">Home</router-link>
         <router-link class="menu-item" to="/lists">Lists</router-link>
       </div>
     </div>
@@ -22,6 +22,9 @@ export default {
     }
   },
   mounted() {
+    this.$root.$on("nav-changed", () => {
+      this.showMenu = !this.showMenu
+    })
     this._keyListener = function(e) {
       const inputs = [...document.querySelectorAll("input")];
       const focusedInput = inputs.includes(document.activeElement);
