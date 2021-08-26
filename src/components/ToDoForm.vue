@@ -24,7 +24,7 @@
       name="new-todo"
       autocomplete="off"
       v-model.lazy.trim="label"
-      maxlength="15"
+      maxlength="40"
       class="input__lg"
     />
     <button type="submit" class="btn btn__primary btn__lg">
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   methods: {
     onSubmit() {
@@ -51,13 +52,14 @@ export default {
     return {
       label: "",
       selected: "",
-      Lists: [
-        { id: 0, name: "" },
-        { id: 1, name: "example" },
-        { id: 2, name: "item" },
-      ],
+      Lists: [],
     };
   },
+  mounted() {
+    axios.get("http://localhost:3001/api/lists").then(response => {
+      this.Lists = response.data
+    })
+  }
 };
 </script>
 <style>

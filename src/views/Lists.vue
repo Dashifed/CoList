@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import uniqueId from "lodash.uniqueid";
+import axios from "axios";
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
 import RouterMenu from '../components/RouterMenu.vue';
@@ -28,9 +28,22 @@ export default {
   },
   methods: {
     createList(listName) {
-      this.Lists.push({ id: uniqueId("list-"), name: listName });
+      axios.post("http://localhost:3001/api/lists", {
+        name: listName
+      })
+      .then((response) => {
+        console.log(response)
+      });
+      axios.get("http://localhost:3001/api/lists").then(response => {
+        this.Lists = response.data
+      })
     },
   },
+  mounted() {
+    axios.get("http://localhost:3001/api/lists").then(response => {
+      this.Lists = response.data
+    })
+  }
 };
 </script>
 <style>

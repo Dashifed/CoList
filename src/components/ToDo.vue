@@ -6,7 +6,7 @@
         class="checkbox"
         :id="id"
         :checked="isDone"
-        @change="$emit('checkbox-changed')"
+        @change="changeCheckbox"
       />
     </div>
     <label :for="id">
@@ -24,6 +24,7 @@
 </template>
 <script>
 import ToDoEdit from "./ToDoEdit.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -48,6 +49,7 @@ export default {
   methods: {
     deleteToDo() {
       this.$emit("remove");
+      axios.delete("http://localhost:3001/api/notes/" + this.id);
     },
     toggleToDoEdit() {
       this.isEditing = true;
@@ -56,6 +58,10 @@ export default {
       this.$emit("item-edited", newLabel);
       this.isEditing = false;
       this.focusOnEditButton();
+    },
+    changeCheckbox() {
+      this.$emit("checkbox-changed")
+      axios.put("http://localhost:3001/api/notes/" + this.id, { label: this.label, done: !this.done })
     },
     editCancelled() {
       this.isEditing = false;

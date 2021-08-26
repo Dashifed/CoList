@@ -32,8 +32,7 @@
   </div>
 </template>
 <script>
-//import axios from "axios";
-import uniqueId from 'lodash.uniqueid';
+import axios from "axios";
 import ToDo from "../components/ToDo.vue";
 import ToDoForm from '../components/ToDoForm.vue';
 import RouterMenu from '../components/RouterMenu.vue';
@@ -52,7 +51,17 @@ export default {
   },
   methods: {
     addToDo(toDoLabel) {
-      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel.label, done: false, list: toDoLabel.list});
+      axios.post(`http://localhost:3001/api/notes`, {
+        label: toDoLabel.label,
+        done: false,
+        list: toDoLabel.list
+      })
+      .then((response) => {
+        console.log(response)
+      });
+      axios.get("http://localhost:3001/api/notes").then(response => {
+        this.ToDoItems = response.data
+      })
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
@@ -73,6 +82,11 @@ export default {
     itemsNotFilter() {
       return this.ToDoItems.filter((item) => item.done);
     },
+  },
+  mounted() {
+    axios.get("http://localhost:3001/api/notes").then(response => {
+      this.ToDoItems = response.data
+    })
   }
 }
 

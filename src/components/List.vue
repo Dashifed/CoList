@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import uniqueId from 'lodash.uniqueid';
+import axios from "axios";
 import ToDo from "./ToDo.vue";
 import ToDoForm from "./ToDoForm.vue";
 export default {
@@ -57,7 +57,17 @@ export default {
   },
   methods: {
     addToDo(toDoLabel) {
-      this.ToDoItems.push({id:uniqueId('todo-'), label: toDoLabel.label, done: false, list: this.name});
+      axios.post(`http://localhost:3001/api/notes`, {
+        label: toDoLabel.label,
+        done: false,
+        list: this.name
+      })
+      .then((response) => {
+        console.log(response)
+      });
+      axios.get("http://localhost:3001/api/notes").then(response => {
+        this.ToDoItems = response.data
+      })
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
@@ -72,13 +82,21 @@ export default {
     }
   },
   computed: {
+    filter() {
+      return this.ToDoItems.filter(item => item.list === this.name)
+    },
     itemsFilter() {
-      return this.ToDoItems.filter((item) => !item.done);
+      return this.filter.filter((item) => !item.done);
     },
     itemsNotFilter() {
-      return this.ToDoItems.filter((item) => item.done);
+      return this.filter.filter((item) => item.done);
     },
   },
+  mounted() {
+    axios.get("http://localhost:3001/api/notes").then(response => {
+      this.ToDoItems = response.data
+    })
+  }
 }
 </script>
 <style>
