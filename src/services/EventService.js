@@ -1,4 +1,4 @@
-import axios from "axios"
+/*import axios from "axios"
 
 export default {
   async getEvents() {
@@ -9,4 +9,4 @@ export default {
     let res = await axios.get("http://localhost:3000/events/" + eventId);
     return res.data;
   }
-}
+}*/

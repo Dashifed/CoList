@@ -1,40 +1,43 @@
 <template>
   <form @submit.prevent="onSubmit" class="main-form">
-    <div v-if="isNotListsView()">
-      <select
-        v-model="selected"
-        class="lists-holder list-toggle"
-      >
-        expand_more
-        <option
-          class="list-item"
-          v-for="list in Lists"
-          :key="list.id"
-          :name="list.name"
-          :id="list.id"
-          :value="list.name"
-        >
-          {{ list.name }}
-        </option>
-      </select>
+    <div class="form-holder">
+      <input
+        type="text"
+        id="new-todo-input"
+        name="new-todo"
+        autocomplete="off"
+        v-model.lazy.trim="label"
+        maxlength="40"
+        class="input__lg"
+        @keyup.enter="onSubmit"
+        @focus="inputFocus = true"
+        placeholder="What's on your mind?"
+      />
+      <div class="bottom-toolbar" v-show="inputFocus">
+        <div v-if="isNotListsView()">
+          <select v-model="selected" class="lists-holder list-toggle">
+            expand_more
+            <option
+              class="list-item"
+              v-for="list in Lists"
+              :key="list.id"
+              :name="list.name"
+              :id="list.id"
+              :value="list.name"
+            >
+              {{ list.name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn__primary btn__lg">
+          Save
+        </button>
+      </div>
     </div>
-    <input
-      type="text"
-      id="new-todo-input"
-      name="new-todo"
-      autocomplete="off"
-      v-model.lazy.trim="label"
-      maxlength="40"
-      class="input__lg"
-    />
-    <button type="submit" class="btn btn__primary btn__lg">
-      Save
-    </button>
   </form>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   methods: {
     onSubmit() {
@@ -53,13 +56,16 @@ export default {
       label: "",
       selected: "",
       Lists: [],
+      inputFocus: false,
     };
   },
-  mounted() {
-    axios.get("http://localhost:3001/api/lists").then(response => {
-      this.Lists = response.data
-    })
-  }
+  created() {
+    this.$axios
+      .get("http://localhost:3001/api/lists", this.$config)
+      .then((response) => {
+        this.Lists = response.data;
+      });
+  },
 };
 </script>
 <style>
@@ -68,9 +74,23 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.input__lg {
+.form-holder {
+  display: grid;
+}
+.bottom-toolbar {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  justify-content: space-between;
+}
+.input__lg,
+.input__lg:focus {
   width: 50vw;
   height: 40px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  outline: none;
 }
 .list-item {
   display: flex;

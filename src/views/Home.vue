@@ -6,74 +6,96 @@
       <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
       <ul class="task-list-items">
-        <to-do v-for="(item, index) in itemsFilter" 
-        :id="item.id" :label="item.label" 
-        :key="item.id" :done="item.done" 
-        :list="item.list"
-        @checkbox-changed="updateDoneStatus(item.id)"
-        @remove="removeTodo(index)"  
-        @item-edited="editToDo(item.id, $event)" 
-        class="task-list-item"></to-do>
+        <to-do
+          v-for="(item, index) in itemsFilter"
+          :id="item.id"
+          :label="item.label"
+          :key="item.id"
+          :done="item.done"
+          :list="item.list"
+          @checkbox-changed="updateDoneStatus(item.id)"
+          @remove="removeTodo(index)"
+          @item-edited="editToDo(item.id, $event)"
+          class="task-list-item"
+        ></to-do>
       </ul>
       <div class="completed-items">
         <h1>Completed</h1>
         <ul class="task-list-items">
-          <to-do v-for="(item, index) in itemsNotFilter" 
-          :id="item.id" :label="item.label" 
-          :key="item.id" :done="item.done" 
-          :list="item.list"
-          @checkbox-changed="updateDoneStatus(item.id)"
-          @remove="removeTodo(index)"  
-          @item-edited="editToDo(item.id, $event)" 
-          class="task-list-item"></to-do>
+          <to-do
+            v-for="(item, index) in itemsNotFilter"
+            :id="item.id"
+            :label="item.label"
+            :key="item.id"
+            :done="item.done"
+            :list="item.list"
+            @checkbox-changed="updateDoneStatus(item.id)"
+            @remove="removeTodo(index)"
+            @item-edited="editToDo(item.id, $event)"
+            class="task-list-item"
+          ></to-do>
         </ul>
       </div>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
 import ToDo from "../components/ToDo.vue";
-import ToDoForm from '../components/ToDoForm.vue';
-import RouterMenu from '../components/RouterMenu.vue';
-import AppNavigation from '../components/AppNavigation.vue';
+import ToDoForm from "../components/ToDoForm.vue";
+import RouterMenu from "../components/RouterMenu.vue";
+import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     ToDo,
     ToDoForm,
     RouterMenu,
-    AppNavigation
+    AppNavigation,
   },
   data() {
     return {
-    ToDoItems: []
+      ToDoItems: [],
     };
   },
   methods: {
     addToDo(toDoLabel) {
-      axios.post(`http://localhost:3001/api/notes`, {
-        label: toDoLabel.label,
-        done: false,
-        list: toDoLabel.list
-      })
-      .then((response) => {
-        console.log(response)
-      });
-      axios.get("http://localhost:3001/api/notes").then(response => {
-        this.ToDoItems = response.data
-      })
+      this.$axios
+        .post(
+          `http://localhost:3001/api/notes`,
+          {
+            label: toDoLabel.label,
+            done: false,
+            list: toDoLabel.list,
+          },
+          this.$config
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.$axios
+        .get("http://localhost:3001/api/notes", this.$config)
+        .then((response) => {
+          this.ToDoItems = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     updateDoneStatus(toDoId) {
-      const toDoToUpdate = this.ToDoItems.find(item => item.id === toDoId);
-      toDoToUpdate.done = !(toDoToUpdate.done)
+      const toDoToUpdate = this.ToDoItems.find((item) => item.id === toDoId);
+      toDoToUpdate.done = !toDoToUpdate.done;
     },
     removeTodo(index) {
       this.ToDoItems.splice(index, 1);
     },
     editToDo(toDoId, newLabel) {
-      const toDoToEdit = this.ToDoItems.find(item => item.id === toDoId);
+      const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);
       toDoToEdit.label = newLabel;
-    }
+    },
   },
   computed: {
     itemsFilter() {
@@ -83,22 +105,33 @@ export default {
       return this.ToDoItems.filter((item) => item.done);
     },
   },
-  mounted() {
-    axios.get("http://localhost:3001/api/notes").then(response => {
-      this.ToDoItems = response.data
-    })
-  }
-}
-
+  created() {
+    this.$axios
+      .get("http://localhost:3001/api/notes", this.$config)
+      .then((response) => {
+        this.ToDoItems = response.data;
+      })
+      .catch((error) => console.log(error.response));
+  },
+};
 </script>
 <style>
-.material-icons{ 
+.material-icons {
   cursor: pointer;
 }
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+  user-select: none;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
 #main-area {
   padding-top: 36px;
 }
@@ -117,6 +150,9 @@ export default {
   color: #42b983;
   text-decoration: none;
 }
+.custom-checkbox {
+  margin-right: 1rem;
+}
 .task-list-items {
   display: grid;
   align-items: center;
@@ -127,13 +163,24 @@ export default {
   display: flex;
   position: relative;
   align-items: stretch;
+  justify-content: space-between;
   width: 50vw;
   height: 50px;
   font-size: 14px;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   outline: none;
   border-bottom: 1px solid #f0f0f0;
   z-index: 50;
+}
+.delete-btn {
+  display: inline-block;
+  cursor: pointer;
+  width: 50px;
+}
+.menu-buttons {
+  display: inline-block;
+  position: absolute;
+  z-index: 100;
 }
 </style>

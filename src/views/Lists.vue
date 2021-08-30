@@ -4,50 +4,70 @@
     <router-menu></router-menu>
     <list-form @list-added="createList"></list-form>
     <div class="slide-container">
-      <list v-for="item in Lists" :key="item.key" :id="item.id" :name="item.name" class="slide"></list>
+      <list
+        v-for="item in Lists"
+        :key="item.key"
+        :id="item.id"
+        :name="item.name"
+        class="slide"
+      ></list>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
-import RouterMenu from '../components/RouterMenu.vue';
-import AppNavigation from '../components/AppNavigation.vue';
+import RouterMenu from "../components/RouterMenu.vue";
+import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     List,
     ListForm,
     RouterMenu,
-    AppNavigation
+    AppNavigation,
   },
   data() {
     return {
-      Lists: []
-    }
+      Lists: [],
+    };
   },
   methods: {
     createList(listName) {
-      axios.post("http://localhost:3001/api/lists", {
-        name: listName
-      })
-      .then((response) => {
-        console.log(response)
-      });
-      axios.get("http://localhost:3001/api/lists").then(response => {
-        this.Lists = response.data
-      })
+      this.$axios
+        .post(
+          "http://localhost:3001/api/lists",
+          {
+            name: listName,
+          },
+          this.$config
+        )
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => console.log(error.response));
+      this.$axios
+        .get("http://localhost:3001/api/lists", this.$config)
+        .then((response) => {
+          this.Lists = response.data
+        })
+      .catch((error) => console.log(error.response));
     },
   },
-  mounted() {
-    axios.get("http://localhost:3001/api/lists").then(response => {
-      this.Lists = response.data
-    })
-  }
+  created() {
+    this.$axios
+      .get("http://localhost:3001/api/lists", this.$config)
+      .then((response) => {
+        this.Lists = response.data
+      })
+      .catch((error) =>
+        console.log(error.response)
+      );
+  },
 };
 </script>
 <style>
-html, body {
+html,
+body {
   margin: 0;
 }
 .slide-container {
@@ -55,7 +75,8 @@ html, body {
   overflow-x: scroll;
   display: flex;
   margin-top: 20px;
-}.slide {
+}
+.slide {
   scroll-snap-align: start;
   min-width: 100vw;
   max-height: 80vh;

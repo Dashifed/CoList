@@ -1,16 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import HomePage from "../views/HomePage.vue";
-import { authGuard } from "../auth/authGuard";
+import HomePage from '../views/HomePage.vue'
+import Register from  '../views/Register.vue'
+import Login from '../views/Login.vue'
+import Lists from '../views/Lists.vue'
 
 Vue.use(VueRouter)
 
+function guardMyroute(to, from, next) {
+  let isAuthenticated = false;
+  if (localStorage.getItem('token'))
+    isAuthenticated = true;
+  else
+    isAuthenticated = false; if (isAuthenticated) {
+      next(); // allow to enter route
+    } else {
+    next('/login'); // go to '/login';
+  }
+}
 const routes = [
   {
     path: '/',
     name: 'HomePage',
-    component: HomePage
+    component: HomePage,
+    meta: {title: 'Home'},
   },
   {
     path: '/about',
@@ -23,14 +37,26 @@ const routes = [
   {
     path: '/lists',
     name: 'Lists',
-    beforeEnter: authGuard,
-    component: () => import('../views/Lists.vue')
+    component: Lists,
+    beforeEnter: guardMyroute,
   },
   {
     path: "/home",
     name: "Home",
     component: Home,
-    beforeEnter: authGuard
+    beforeEnter: guardMyroute,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: {title: 'Register'},
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: {title: 'Login'},
   }
 ]
 

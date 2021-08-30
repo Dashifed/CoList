@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isEditing" ref="editButton" @click="toggleToDoEdit">
+  <div v-if="!isEditing">
     <div class="custom-checkbox">
       <input
         type="checkbox"
@@ -8,11 +8,18 @@
         :checked="isDone"
         @change="changeCheckbox"
       />
+      <label :for="id">
+        {{ label }}
+      </label>
     </div>
-    <label :for="id">
-      {{ label }}
-      <button type="button" @click="deleteToDo">Delete</button>
-    </label>
+    <div>
+      <span class="material-icons md-24 material-icons-outlined" @click="openMenu">more_horiz</span>
+      <div class="menu-buttons">
+        <button type="button" class="delete-btn" v-show="menu_open" ref="editButton" @click="toggleToDoEdit">Edit</button>
+        <button type="button" class="delete-btn" v-show="menu_open" @click="deleteToDo">Delete</button>
+      </div>
+    </div>
+    <div v-show="menu_open" id="back-cover" @click="menu_open = !menu_open"></div>
   </div>
   <to-do-edit
     v-else
@@ -24,7 +31,6 @@
 </template>
 <script>
 import ToDoEdit from "./ToDoEdit.vue";
-import axios from "axios";
 
 export default {
   components: {
@@ -34,11 +40,12 @@ export default {
     label: { required: true, type: String },
     done: { default: false, type: Boolean },
     id: { required: true, type: String },
-    list: {required: true, type: String},
+    list: { required: true, type: String },
   },
   data() {
     return {
       isEditing: false,
+      menu_open: false
     };
   },
   computed: {
@@ -49,10 +56,15 @@ export default {
   methods: {
     deleteToDo() {
       this.$emit("remove");
-      axios.delete("http://localhost:3001/api/notes/" + this.id);
+      this.$axios.delete(
+        "http://localhost:3001/api/notes/" + this.id,
+        this.$config
+      );
+      this.menu_open = false
     },
     toggleToDoEdit() {
       this.isEditing = true;
+      this.menu_open = false;
     },
     itemEdited(newLabel) {
       this.$emit("item-edited", newLabel);
@@ -60,8 +72,12 @@ export default {
       this.focusOnEditButton();
     },
     changeCheckbox() {
-      this.$emit("checkbox-changed")
-      axios.put("http://localhost:3001/api/notes/" + this.id, { label: this.label, done: !this.done })
+      this.$emit("checkbox-changed");
+      this.$axios.put(
+        "http://localhost:3001/api/notes/" + this.id,
+        { label: this.label, done: !this.done },
+        this.$config
+      );
     },
     editCancelled() {
       this.isEditing = false;
@@ -73,6 +89,9 @@ export default {
         editButtonRef.focus();
       });
     },
+    openMenu() {
+      this.menu_open = !this.menu_open
+    }
   },
 };
 </script>

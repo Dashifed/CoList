@@ -33,6 +33,7 @@ export default {
   max-width: 30vw;
   border-radius: 1rem;
   padding: 0.2rem;
+  user-select: none;
 }
 .app-nav_btn:hover {
   background: #f5f5f7;

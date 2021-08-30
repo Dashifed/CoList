@@ -2,13 +2,13 @@
   <div>
     <div>
       <input
-      :id="id"
-      ref="labelInput"
-      type="text"
-      autocomplete="off"
-      @keyup.enter="onSubmit"
-      @keyup.esc="onCancel"
-      v-model.lazy.trim="newLabel"
+        :id="id"
+        ref="labelInput"
+        type="text"
+        autocomplete="off"
+        @keyup.enter="onSubmit"
+        @keyup.esc="onCancel"
+        v-model.lazy.trim="newLabel"
       />
     </div>
     <div>
@@ -18,7 +18,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
   props: {
     label: {
@@ -26,7 +25,7 @@ export default {
       required: true,
     },
     id: { required: true, type: String },
-    done: { default: false, type: Boolean }
+    done: { default: false, type: Boolean },
   },
   data() {
     return {
@@ -37,7 +36,11 @@ export default {
     onSubmit() {
       if (this.newLabel && this.newLabel !== this.label) {
         this.$emit("item-edited", this.newLabel);
-        axios.put("http://localhost:3001/api/notes/" + this.id, { label: this.newLabel, done: this.done })
+        this.$axios.put(
+          "http://localhost:3001/api/notes/" + this.id,
+          { label: this.newLabel, done: this.done },
+          this.$config
+        );
       }
     },
     onCancel() {
