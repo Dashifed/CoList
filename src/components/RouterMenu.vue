@@ -49,14 +49,14 @@ export default {
   box-sizing: border-box;
   border-radius: 2rem;
   width: 30vw;
-  height: 200px;
+  height: 100px;
   z-index: 150;
 }
 #back-cover {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 50;
+  z-index: 99;
 }
 .menu-items {
   margin-top: 20px;
@@ -70,5 +70,15 @@ export default {
 }
 .menu-item:hover {
   color: #fff;
+}
+.router-item {
+  color: black;
+  display: block;
+  height: 30px;
+  text-decoration: none;
+  font-size: large;
+}
+.router-item:hover {
+  color: #ccc;
 }
 </style>

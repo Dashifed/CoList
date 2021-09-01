@@ -8,7 +8,7 @@
         autocomplete="off"
         v-model.lazy.trim="label"
         maxlength="40"
-        class="input__lg"
+        class="input-lg"
         @keyup.enter="onSubmit"
         @focus="inputFocus = true"
         placeholder="What's on your mind?"
@@ -29,7 +29,7 @@
             </option>
           </select>
         </div>
-        <button type="submit" class="btn btn__primary btn__lg">
+        <button type="submit" class="btn btn-primary">
           Save
         </button>
       </div>
@@ -83,12 +83,12 @@ export default {
   align-items: stretch;
   justify-content: space-between;
 }
-.input__lg,
-.input__lg:focus {
+.input-lg,
+.input-lg:focus {
   width: 50vw;
   height: 40px;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
   margin-bottom: 10px;
   outline: none;
 }
@@ -115,9 +115,8 @@ export default {
   text-align: center;
   display: grid;
   max-height: 15vh;
-  border-radius: 5px;
-  border: 1px solid black;
-  z-index: 100;
+  border-radius: 10px;
+  border: 2px solid black;
   background: #fff;
   overflow-y: auto;
 }
@@ -131,5 +130,17 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+.btn-primary {
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 60px;
+  height: 40px;
+  opacity: 0.9;
+}
+.btn-primary:hover {
+  opacity: 1;
 }
 </style>

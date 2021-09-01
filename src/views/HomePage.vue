@@ -2,15 +2,11 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <br/>
-    <router-link to="/home">App</router-link>
-    <br>
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
+    <router-link class="router-item" to="/home">App</router-link>
+    <router-link class="router-item" to="/">Home</router-link>
     <div>
-      <!-- show login when not authenticated -->
-      <button @click="login">Log in</button>
-      <!-- show logout when authenticated -->
-      <button @click="logout">Log out</button>
+      <button class="btn-primary" @click="login">Log in</button>
+      <button class="btn-primary" @click="logout">Log out</button>
     </div>
   </div>
 </template>

@@ -77,12 +77,14 @@ body {
   margin-top: 20px;
 }
 .slide {
-  scroll-snap-align: start;
-  min-width: 100vw;
-  max-height: 80vh;
-  margin-left: 10vw;
-  margin-right: 10vw;
+  scroll-snap-align: center;
+  width: 100vw;
+  height: calc(80vh - 20px);
+  margin-left: 25vw;
+  margin-right: 25vw;
+  position: relative;
   display: flex;
+  align-items: center;
   text-align: center;
   justify-content: center;
 }

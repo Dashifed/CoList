@@ -20,7 +20,7 @@
         ></to-do>
       </ul>
       <div class="completed-items">
-        <h1>Completed</h1>
+        <h1 class="light-txt">Completed</h1>
         <ul class="task-list-items">
           <to-do
             v-for="(item, index) in itemsNotFilter"
@@ -74,16 +74,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-
-      this.$axios
-        .get("http://localhost:3001/api/notes", this.$config)
-        .then((response) => {
-          this.ToDoItems = response.data;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     updateDoneStatus(toDoId) {
       const toDoToUpdate = this.ToDoItems.find((item) => item.id === toDoId);
@@ -113,6 +103,16 @@ export default {
       })
       .catch((error) => console.log(error.response));
   },
+  updated() {
+    this.$nextTick(function() {
+      this.$axios
+        .get("http://localhost:3001/api/notes", this.$config)
+        .then((response) => {
+          this.ToDoItems = response.data;
+        })
+        .catch((error) => console.log(error.response));
+    });
+  },
 };
 </script>
 <style>
@@ -131,6 +131,9 @@ export default {
 }
 .material-icons.md-48 {
   font-size: 48px;
+}
+input {
+  font-size: 16px;
 }
 #main-area {
   padding-top: 36px;
@@ -152,6 +155,7 @@ export default {
 }
 .custom-checkbox {
   margin-right: 1rem;
+  display: flex;
 }
 .task-list-items {
   display: grid;
@@ -166,7 +170,7 @@ export default {
   justify-content: space-between;
   width: 50vw;
   height: 50px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   outline: none;
@@ -177,10 +181,29 @@ export default {
   display: inline-block;
   cursor: pointer;
   width: 50px;
+  padding: 3px;
+  background-color: white;
+  border: 1px solid #f1f1f1;
+  border-radius: 5px;
+  margin-bottom: 2px;
 }
 .menu-buttons {
   display: inline-block;
   position: absolute;
   z-index: 100;
+}
+.item-labels {
+  margin-left: 1rem;
+  display: grid;
+}
+.todo-label {
+  display: flex;
+  align-items: center;
+}
+.todo-list {
+  font-size: 12px;
+}
+.list-form {
+  margin: 20px;
 }
 </style>

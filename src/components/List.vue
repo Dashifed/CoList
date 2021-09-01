@@ -3,7 +3,7 @@
     <div class="list-items">
       <h1 class="list-name">{{ name }}</h1>
       <to-do-form @todo-added="addToDo"></to-do-form>
-      <ul class="todo-list-items">
+      <ul class="task-list-items">
         <to-do
           v-for="(item, index) in itemsFilter"
           :id="item.id"
@@ -14,12 +14,12 @@
           @checkbox-changed="updateDoneStatus(item.id)"
           @remove="removeTodo(index)"
           @item-edited="editToDo(item.id, $event)"
-          class="todo-list-item"
+          class="task-list-item"
         ></to-do>
       </ul>
       <div class="completed-items">
-        <h2>Completed</h2>
-        <ul class="todo-list-items">
+        <h2 class="light-txt">Completed</h2>
+        <ul class="task-list-items">
           <to-do
             v-for="(item, index) in itemsNotFilter"
             :id="item.id"
@@ -30,7 +30,7 @@
             @checkbox-changed="updateDoneStatus(item.id)"
             @remove="removeTodo(index)"
             @item-edited="editToDo(item.id, $event)"
-            class="todo-list-item"
+            class="task-list-item"
           ></to-do>
         </ul>
       </div>
@@ -118,11 +118,9 @@ export default {
 </script>
 <style>
 .list {
-  width: 50vw;
-  height: 80vh;
   padding: 20px;
-  border: 1px solid black;
-  border-radius: 1rem;
+  border: 2px dotted black;
+  border-radius: 20px;
   box-sizing: border-box;
 }
 .list-items {
@@ -140,25 +138,10 @@ export default {
 .heavy-txt {
   font-weight: 500;
 }
-.todo-list-items {
-  width: 100%;
-  display: grid;
-  padding: 0;
+.light-txt {
+  color: #ccc;
 }
 .completed-items {
   justify-content: center;
-}
-.todo-list-item {
-  display: flex;
-  position: relative;
-  align-items: stretch;
-  width: 100%;
-  height: 50px;
-  font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
-    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  outline: none;
-  border-bottom: 1px solid #f0f0f0;
-  z-index: 50;
 }
 </style>

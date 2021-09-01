@@ -2,29 +2,34 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HomePage from '../views/HomePage.vue'
-import Register from  '../views/Register.vue'
+import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Lists from '../views/Lists.vue'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
 function guardMyroute(to, from, next) {
-  let isAuthenticated = false;
-  if (localStorage.getItem('token'))
-    isAuthenticated = true;
-  else
-    isAuthenticated = false; if (isAuthenticated) {
-      next(); // allow to enter route
-    } else {
-    next('/login'); // go to '/login';
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
   }
+  axios.get("http://localhost:3001/auth", config)
+  .then(() => {
+    next()
+  })
+  .catch(() => {
+    next('/login')
+  })
 }
 const routes = [
   {
     path: '/',
     name: 'HomePage',
     component: HomePage,
-    meta: {title: 'Home'},
+    meta: { title: 'Home' },
   },
   {
     path: '/about',
@@ -50,13 +55,13 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-    meta: {title: 'Register'},
+    meta: { title: 'Register' },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    meta: {title: 'Login'},
+    meta: { title: 'Login' },
   }
 ]
 

@@ -12,8 +12,8 @@
       />
     </div>
     <div>
-      <button @click="onCancel">Cancel</button>
-      <button @click="onSubmit">Save</button>
+      <button class="delete-btn" @click="onCancel">Cancel</button>
+      <button class="delete-btn" @click="onSubmit">Save</button>
     </div>
   </div>
 </template>

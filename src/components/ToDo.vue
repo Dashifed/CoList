@@ -8,9 +8,14 @@
         :checked="isDone"
         @change="changeCheckbox"
       />
-      <label :for="id">
-        {{ label }}
-      </label>
+      <div class="item-labels">
+        <label class="todo-label" :for="id">
+          {{ label }}
+        </label>
+        <label class="todo-list" :for="id" v-show="list">
+          {{ list }}
+        </label>
+      </div>
     </div>
     <div>
       <span class="material-icons md-24 material-icons-outlined" @click="openMenu">more_horiz</span>
