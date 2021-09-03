@@ -16,7 +16,7 @@ function guardMyroute(to, from, next) {
       'Authorization': `Bearer ${token}`
     }
   }
-  axios.get("http://localhost:3001/auth", config)
+  axios.get("https://co-list-app.herokuapp.com/auth", config)
   .then(() => {
     next()
   })

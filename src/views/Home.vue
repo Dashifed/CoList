@@ -7,14 +7,14 @@
       <router-view></router-view>
       <ul class="task-list-items">
         <to-do
-          v-for="(item, index) in itemsFilter"
+          v-for="item in itemsFilter"
           :id="item.id"
           :label="item.label"
           :key="item.id"
           :done="item.done"
           :list="item.list"
           @checkbox-changed="updateDoneStatus(item.id)"
-          @remove="removeTodo(index)"
+          @remove="removeTodo(item.id)"
           @item-edited="editToDo(item.id, $event)"
           class="task-list-item"
         ></to-do>
@@ -23,14 +23,14 @@
         <h1 class="light-txt">Completed</h1>
         <ul class="task-list-items">
           <to-do
-            v-for="(item, index) in itemsNotFilter"
+            v-for="item in itemsNotFilter"
             :id="item.id"
             :label="item.label"
             :key="item.id"
             :done="item.done"
             :list="item.list"
             @checkbox-changed="updateDoneStatus(item.id)"
-            @remove="removeTodo(index)"
+            @remove="removeTodo(item.id)"
             @item-edited="editToDo(item.id, $event)"
             class="task-list-item"
           ></to-do>
@@ -60,7 +60,7 @@ export default {
     addToDo(toDoLabel) {
       this.$axios
         .post(
-          `http://localhost:3001/api/notes`,
+          `${this.$baseUrl}/api/notes`,
           {
             label: toDoLabel.label,
             done: false,
@@ -68,8 +68,13 @@ export default {
           },
           this.$config
         )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          return this.$axios
+            .get(`${this.$baseUrl}/api/notes`, this.$config)
+            .then((response) => {
+              this.ToDoItems = response.data;
+            })
+            .catch((error) => console.log(error.response));
         })
         .catch((error) => {
           console.log(error);
@@ -79,8 +84,15 @@ export default {
       const toDoToUpdate = this.ToDoItems.find((item) => item.id === toDoId);
       toDoToUpdate.done = !toDoToUpdate.done;
     },
-    removeTodo(index) {
-      this.ToDoItems.splice(index, 1);
+    removeTodo(toDoId) {
+      const toDoToRemove = this.ToDoItems.find((item) => item.id === toDoId);
+      return this.$axios
+        .get(`${this.$baseUrl}/api/notes`, this.$config)
+        .then((response) => {
+          this.ToDoItems.splice(toDoToRemove, 1);
+          this.ToDoItems = response.data;
+        })
+        .catch((error) => console.log(error.response));
     },
     editToDo(toDoId, newLabel) {
       const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);
@@ -97,21 +109,11 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://localhost:3001/api/notes", this.$config)
+      .get(`${this.$baseUrl}/api/notes`, this.$config)
       .then((response) => {
         this.ToDoItems = response.data;
       })
       .catch((error) => console.log(error.response));
-  },
-  updated() {
-    this.$nextTick(function() {
-      this.$axios
-        .get("http://localhost:3001/api/notes", this.$config)
-        .then((response) => {
-          this.ToDoItems = response.data;
-        })
-        .catch((error) => console.log(error.response));
-    });
   },
 };
 </script>
@@ -202,6 +204,7 @@ input {
 }
 .todo-list {
   font-size: 12px;
+  display: flex;
 }
 .list-form {
   margin: 20px;

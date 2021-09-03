@@ -18,13 +18,36 @@
       </div>
     </div>
     <div>
-      <span class="material-icons md-24 material-icons-outlined" @click="openMenu">more_horiz</span>
+      <span
+        class="material-icons md-24 material-icons-outlined"
+        @click="openMenu"
+        >more_horiz</span
+      >
       <div class="menu-buttons">
-        <button type="button" class="delete-btn" v-show="menu_open" ref="editButton" @click="toggleToDoEdit">Edit</button>
-        <button type="button" class="delete-btn" v-show="menu_open" @click="deleteToDo">Delete</button>
+        <button
+          type="button"
+          class="delete-btn"
+          v-show="menu_open"
+          ref="editButton"
+          @click="toggleToDoEdit"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="delete-btn"
+          v-show="menu_open"
+          @click="deleteToDo"
+        >
+          Delete
+        </button>
       </div>
     </div>
-    <div v-show="menu_open" id="back-cover" @click="menu_open = !menu_open"></div>
+    <div
+      v-show="menu_open"
+      id="back-cover"
+      @click="menu_open = !menu_open"
+    ></div>
   </div>
   <to-do-edit
     v-else
@@ -50,7 +73,7 @@ export default {
   data() {
     return {
       isEditing: false,
-      menu_open: false
+      menu_open: false,
     };
   },
   computed: {
@@ -60,12 +83,13 @@ export default {
   },
   methods: {
     deleteToDo() {
-      this.$emit("remove");
-      this.$axios.delete(
-        "http://localhost:3001/api/notes/" + this.id,
-        this.$config
-      );
-      this.menu_open = false
+      return this.$axios
+        .delete(`${this.$baseUrl}/api/notes/` + this.id, this.$config)
+        .then(() => {
+          this.menu_open = false;
+          this.$emit("remove");
+        })
+        .catch((error) => console.log(error.response));
     },
     toggleToDoEdit() {
       this.isEditing = true;
@@ -77,12 +101,16 @@ export default {
       this.focusOnEditButton();
     },
     changeCheckbox() {
-      this.$emit("checkbox-changed");
-      this.$axios.put(
-        "http://localhost:3001/api/notes/" + this.id,
-        { label: this.label, done: !this.done },
-        this.$config
-      );
+      this.$axios
+        .put(
+          `${this.$baseUrl}/api/notes/` + this.id,
+          { label: this.label, done: !this.done },
+          this.$config
+        )
+        .then(() => {
+          this.$emit("checkbox-changed");
+        })
+        .catch((error) => console.log(error.response));
     },
     editCancelled() {
       this.isEditing = false;
@@ -95,8 +123,8 @@ export default {
       });
     },
     openMenu() {
-      this.menu_open = !this.menu_open
-    }
+      this.menu_open = !this.menu_open;
+    },
   },
 };
 </script>

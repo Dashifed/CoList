@@ -35,33 +35,31 @@ export default {
     createList(listName) {
       this.$axios
         .post(
-          "http://localhost:3001/api/lists",
+          `${this.$baseUrl}/api/lists`,
           {
             name: listName,
           },
           this.$config
         )
         .then((response) => {
-          console.log(response)
+          console.log(response);
+          return this.$axios
+            .get(`${this.$baseUrl}/api/lists`, this.$config)
+            .then((response) => {
+              this.Lists = response.data;
+            })
+            .catch((error) => console.log(error.response));
         })
         .catch((error) => console.log(error.response));
-      this.$axios
-        .get("http://localhost:3001/api/lists", this.$config)
-        .then((response) => {
-          this.Lists = response.data
-        })
-      .catch((error) => console.log(error.response));
     },
   },
   created() {
     this.$axios
-      .get("http://localhost:3001/api/lists", this.$config)
+      .get(`${this.$baseUrl}/api/lists`, this.$config)
       .then((response) => {
-        this.Lists = response.data
+        this.Lists = response.data;
       })
-      .catch((error) =>
-        console.log(error.response)
-      );
+      .catch((error) => console.log(error.response));
   },
 };
 </script>

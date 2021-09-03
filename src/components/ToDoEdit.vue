@@ -35,12 +35,16 @@ export default {
   methods: {
     onSubmit() {
       if (this.newLabel && this.newLabel !== this.label) {
-        this.$emit("item-edited", this.newLabel);
-        this.$axios.put(
-          "http://localhost:3001/api/notes/" + this.id,
-          { label: this.newLabel, done: this.done },
-          this.$config
-        );
+        this.$axios
+          .put(
+            `${this.$baseUrl}/api/notes/` + this.id,
+            { label: this.newLabel, done: this.done },
+            this.$config
+          )
+          .then(() => {
+            this.$emit("item-edited", this.newLabel);
+          })
+          .catch((error) => console.log(error.response));
       }
     },
     onCancel() {

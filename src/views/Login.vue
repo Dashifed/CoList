@@ -39,7 +39,7 @@ export default {
   methods: {
     on_login() {
       this.$axios
-        .post("http://localhost:3001/login", {
+        .post(`${this.$baseUrl}/login`, {
           email: this.email,
           password: this.password,
         })
@@ -47,8 +47,7 @@ export default {
           localStorage.setItem("token", response.data.token);
           router.push("/home")
         })
-        .catch((error) =>
-          console.log(error.response),
+        .catch(() =>
           this.err_msg1 = "Error"
       );
     },

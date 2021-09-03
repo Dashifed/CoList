@@ -99,7 +99,7 @@ export default {
     },
     on_signup() {
       this.$axios
-        .post("http://localhost:3001/register", {
+        .post(`${this.$baseUrl}/register`, {
           email: this.email,
           password: this.password1,
         })
@@ -107,8 +107,7 @@ export default {
           localStorage.setItem("token", response.data.token);
           router.push("/home")
         })
-        .catch((error) =>
-          console.log(error.response),
+        .catch(() =>
           this.err_msg1 = "Error"
       );
       this.$emit("change_comp", "results");

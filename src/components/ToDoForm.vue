@@ -61,7 +61,7 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://localhost:3001/api/lists", this.$config)
+      .get(`${this.$baseUrl}/api/lists`, this.$config)
       .then((response) => {
         this.Lists = response.data;
       });
