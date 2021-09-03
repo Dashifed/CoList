@@ -2,18 +2,18 @@
   <div>
     <div>
       <input
-      :id="id"
-      ref="labelInput"
-      type="text"
-      autocomplete="off"
-      @keyup.enter="onSubmit"
-      @keyup.esc="onCancel"
-      v-model.lazy.trim="newLabel"
+        :id="id"
+        ref="labelInput"
+        type="text"
+        autocomplete="off"
+        @keyup.enter="onSubmit"
+        @keyup.esc="onCancel"
+        v-model.lazy.trim="newLabel"
       />
     </div>
     <div>
-      <button @click="onCancel">Cancel</button>
-      <button @click="onSubmit">Save</button>
+      <button class="delete-btn" @click="onCancel">Cancel</button>
+      <button class="delete-btn" @click="onSubmit">Save</button>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default {
       required: true,
     },
     id: { required: true, type: String },
+    done: { default: false, type: Boolean },
   },
   data() {
     return {
@@ -34,7 +35,16 @@ export default {
   methods: {
     onSubmit() {
       if (this.newLabel && this.newLabel !== this.label) {
-        this.$emit("item-edited", this.newLabel);
+        this.$axios
+          .put(
+            `${this.$baseUrl}/api/notes/` + this.id,
+            { label: this.newLabel, done: this.done },
+            this.$config
+          )
+          .then(() => {
+            this.$emit("item-edited", this.newLabel);
+          })
+          .catch((error) => console.log(error.response));
       }
     },
     onCancel() {

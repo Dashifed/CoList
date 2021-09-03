@@ -1,35 +1,39 @@
 <template>
   <form @submit.prevent="onSubmit" class="main-form">
-    <div v-if="isNotListsView()">
-      <select
-        v-model="selected"
-        class="lists-holder list-toggle"
-      >
-        expand_more
-        <option
-          class="list-item"
-          v-for="list in Lists"
-          :key="list.id"
-          :name="list.name"
-          :id="list.id"
-          :value="list.name"
-        >
-          {{ list.name }}
-        </option>
-      </select>
+    <div class="form-holder">
+      <input
+        type="text"
+        id="new-todo-input"
+        name="new-todo"
+        autocomplete="off"
+        v-model.lazy.trim="label"
+        maxlength="40"
+        class="input-lg"
+        @keyup.enter="onSubmit"
+        @focus="inputFocus = true"
+        placeholder="What's on your mind?"
+      />
+      <div class="bottom-toolbar" v-show="inputFocus">
+        <div v-if="isNotListsView()">
+          <select v-model="selected" class="lists-holder list-toggle">
+            expand_more
+            <option
+              class="list-item"
+              v-for="list in Lists"
+              :key="list.id"
+              :name="list.name"
+              :id="list.id"
+              :value="list.name"
+            >
+              {{ list.name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Save
+        </button>
+      </div>
     </div>
-    <input
-      type="text"
-      id="new-todo-input"
-      name="new-todo"
-      autocomplete="off"
-      v-model.lazy.trim="label"
-      maxlength="15"
-      class="input__lg"
-    />
-    <button type="submit" class="btn btn__primary btn__lg">
-      Save
-    </button>
   </form>
 </template>
 
@@ -51,12 +55,16 @@ export default {
     return {
       label: "",
       selected: "",
-      Lists: [
-        { id: 0, name: "" },
-        { id: 1, name: "example" },
-        { id: 2, name: "item" },
-      ],
+      Lists: [],
+      inputFocus: false,
     };
+  },
+  created() {
+    this.$axios
+      .get(`${this.$baseUrl}/api/lists`, this.$config)
+      .then((response) => {
+        this.Lists = response.data;
+      });
   },
 };
 </script>
@@ -66,9 +74,23 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.input__lg {
+.form-holder {
+  display: grid;
+}
+.bottom-toolbar {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  justify-content: space-between;
+}
+.input-lg,
+.input-lg:focus {
   width: 50vw;
   height: 40px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 10px;
+  outline: none;
 }
 .list-item {
   display: flex;
@@ -93,9 +115,8 @@ export default {
   text-align: center;
   display: grid;
   max-height: 15vh;
-  border-radius: 5px;
-  border: 1px solid black;
-  z-index: 100;
+  border-radius: 10px;
+  border: 2px solid black;
   background: #fff;
   overflow-y: auto;
 }
@@ -109,5 +130,17 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+.btn-primary {
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 60px;
+  height: 40px;
+  opacity: 0.9;
+}
+.btn-primary:hover {
+  opacity: 1;
 }
 </style>

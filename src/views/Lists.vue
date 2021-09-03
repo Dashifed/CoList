@@ -4,37 +4,68 @@
     <router-menu></router-menu>
     <list-form @list-added="createList"></list-form>
     <div class="slide-container">
-      <list v-for="item in Lists" :key="item.key" :id="item.id" :name="item.name" class="slide"></list>
+      <list
+        v-for="item in Lists"
+        :key="item.key"
+        :id="item.id"
+        :name="item.name"
+        class="slide"
+      ></list>
     </div>
   </div>
 </template>
 <script>
-import uniqueId from "lodash.uniqueid";
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
-import RouterMenu from '../components/RouterMenu.vue';
-import AppNavigation from '../components/AppNavigation.vue';
+import RouterMenu from "../components/RouterMenu.vue";
+import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     List,
     ListForm,
     RouterMenu,
-    AppNavigation
+    AppNavigation,
   },
   data() {
     return {
-      Lists: []
-    }
+      Lists: [],
+    };
   },
   methods: {
     createList(listName) {
-      this.Lists.push({ id: uniqueId("list-"), name: listName });
+      this.$axios
+        .post(
+          `${this.$baseUrl}/api/lists`,
+          {
+            name: listName,
+          },
+          this.$config
+        )
+        .then((response) => {
+          console.log(response);
+          return this.$axios
+            .get(`${this.$baseUrl}/api/lists`, this.$config)
+            .then((response) => {
+              this.Lists = response.data;
+            })
+            .catch((error) => console.log(error.response));
+        })
+        .catch((error) => console.log(error.response));
     },
+  },
+  created() {
+    this.$axios
+      .get(`${this.$baseUrl}/api/lists`, this.$config)
+      .then((response) => {
+        this.Lists = response.data;
+      })
+      .catch((error) => console.log(error.response));
   },
 };
 </script>
 <style>
-html, body {
+html,
+body {
   margin: 0;
 }
 .slide-container {
@@ -42,13 +73,16 @@ html, body {
   overflow-x: scroll;
   display: flex;
   margin-top: 20px;
-}.slide {
-  scroll-snap-align: start;
-  min-width: 100vw;
-  max-height: 80vh;
-  margin-left: 10vw;
-  margin-right: 10vw;
+}
+.slide {
+  scroll-snap-align: center;
+  width: 100vw;
+  height: calc(80vh - 20px);
+  margin-left: 25vw;
+  margin-right: 25vw;
+  position: relative;
   display: flex;
+  align-items: center;
   text-align: center;
   justify-content: center;
 }

@@ -1,18 +1,16 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <h2>
-      <div for="new-list-input">
-        Create a list
-      </div>
-    </h2>
+  <form @submit.prevent="onSubmit" class="list-form">
     <input
       type="text"
       id="new-list-input"
       name="new-list"
       autocomplete="off"
       v-model.lazy.trim="name"
+      class="input-lg"
+      placeholder="Type to create a new list"
+      @focus="inputFocus = true"
     />
-    <button type="submit">
+    <button type="submit" class="btn-primary" v-show="inputFocus">
       Add
     </button>
   </form>
@@ -30,7 +28,8 @@ export default {
   },
   data() {
     return {
-      name: ""
+      name: "",
+      inputFocus: false
     };
   }
 };

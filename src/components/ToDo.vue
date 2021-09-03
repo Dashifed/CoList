@@ -1,18 +1,53 @@
 <template>
-  <div v-if="!isEditing" ref="editButton" @click="toggleToDoEdit">
+  <div v-if="!isEditing">
     <div class="custom-checkbox">
       <input
         type="checkbox"
         class="checkbox"
         :id="id"
         :checked="isDone"
-        @change="$emit('checkbox-changed')"
+        @change="changeCheckbox"
       />
+      <div class="item-labels">
+        <label class="todo-label" :for="id">
+          {{ label }}
+        </label>
+        <label class="todo-list" :for="id" v-show="list">
+          {{ list }}
+        </label>
+      </div>
     </div>
-    <label :for="id">
-      {{ label }}
-      <button type="button" @click="deleteToDo">Delete</button>
-    </label>
+    <div>
+      <span
+        class="material-icons md-24 material-icons-outlined"
+        @click="openMenu"
+        >more_horiz</span
+      >
+      <div class="menu-buttons">
+        <button
+          type="button"
+          class="delete-btn"
+          v-show="menu_open"
+          ref="editButton"
+          @click="toggleToDoEdit"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="delete-btn"
+          v-show="menu_open"
+          @click="deleteToDo"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <div
+      v-show="menu_open"
+      id="back-cover"
+      @click="menu_open = !menu_open"
+    ></div>
   </div>
   <to-do-edit
     v-else
@@ -33,11 +68,12 @@ export default {
     label: { required: true, type: String },
     done: { default: false, type: Boolean },
     id: { required: true, type: String },
-    list: {required: true, type: String},
+    list: { required: true, type: String },
   },
   data() {
     return {
       isEditing: false,
+      menu_open: false,
     };
   },
   computed: {
@@ -47,15 +83,34 @@ export default {
   },
   methods: {
     deleteToDo() {
-      this.$emit("remove");
+      return this.$axios
+        .delete(`${this.$baseUrl}/api/notes/` + this.id, this.$config)
+        .then(() => {
+          this.menu_open = false;
+          this.$emit("remove");
+        })
+        .catch((error) => console.log(error.response));
     },
     toggleToDoEdit() {
       this.isEditing = true;
+      this.menu_open = false;
     },
     itemEdited(newLabel) {
       this.$emit("item-edited", newLabel);
       this.isEditing = false;
       this.focusOnEditButton();
+    },
+    changeCheckbox() {
+      this.$axios
+        .put(
+          `${this.$baseUrl}/api/notes/` + this.id,
+          { label: this.label, done: !this.done },
+          this.$config
+        )
+        .then(() => {
+          this.$emit("checkbox-changed");
+        })
+        .catch((error) => console.log(error.response));
     },
     editCancelled() {
       this.isEditing = false;
@@ -66,6 +121,9 @@ export default {
         const editButtonRef = this.$refs.editButton;
         editButtonRef.focus();
       });
+    },
+    openMenu() {
+      this.menu_open = !this.menu_open;
     },
   },
 };

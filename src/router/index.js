@@ -1,16 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import HomePage from "../views/HomePage.vue";
-import { authGuard } from "../auth/authGuard";
+import HomePage from '../views/HomePage.vue'
+import Register from '../views/Register.vue'
+import Login from '../views/Login.vue'
+import Lists from '../views/Lists.vue'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
+function guardMyroute(to, from, next) {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+  axios.get("https://co-list-app.herokuapp.com/auth", config)
+  .then(() => {
+    next()
+  })
+  .catch(() => {
+    next('/login')
+  })
+}
 const routes = [
   {
     path: '/',
     name: 'HomePage',
-    component: HomePage
+    component: HomePage,
+    meta: { title: 'Home' },
   },
   {
     path: '/about',
@@ -23,14 +42,26 @@ const routes = [
   {
     path: '/lists',
     name: 'Lists',
-    beforeEnter: authGuard,
-    component: () => import('../views/Lists.vue')
+    component: Lists,
+    beforeEnter: guardMyroute,
   },
   {
     path: "/home",
     name: "Home",
     component: Home,
-    beforeEnter: authGuard
+    beforeEnter: guardMyroute,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: { title: 'Register' },
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: { title: 'Login' },
   }
 ]
 
