@@ -100,7 +100,7 @@ export default {
     on_signup() {
       this.$axios
         .post(`${this.$baseUrl}/register`, {
-          email: this.email,
+          email: this.email.toLowerCase(),
           password: this.password1,
         })
         .then((response) => {
@@ -134,6 +134,13 @@ export default {
       }
     },
   },
+  mounted() {
+    const storageEmail = localStorage.getItem("formUserEmail")
+    if (storageEmail) {
+      this.email = storageEmail
+      localStorage.removeItem("formUserEmail")
+    }
+  }
 };
 </script>
 <style>

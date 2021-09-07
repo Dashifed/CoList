@@ -17,6 +17,7 @@
         <div v-if="isNotListsView()">
           <select v-model="selected" class="lists-holder list-toggle">
             expand_more
+            <option value="" selected>List</option>
             <option
               class="list-item"
               v-for="list in Lists"
@@ -46,6 +47,7 @@ export default {
       }
       this.$emit("todo-added", { label: this.label, list: this.selected });
       this.label = "";
+      this.inputFocus = false;
     },
     isNotListsView() {
       return this.$router.history.current["path"] !== "/lists";

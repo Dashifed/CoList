@@ -77,8 +77,12 @@ export default {
   height: 30px;
   text-decoration: none;
   font-size: large;
+  user-select: none;
 }
 .router-item:hover {
   color: #ccc;
+}
+.nav-router {
+  margin-left: 30px;
 }
 </style>

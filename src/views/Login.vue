@@ -40,7 +40,7 @@ export default {
     on_login() {
       this.$axios
         .post(`${this.$baseUrl}/login`, {
-          email: this.email,
+          email: this.email.toLowerCase(),
           password: this.password,
         })
         .then((response) => {
