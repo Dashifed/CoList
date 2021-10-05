@@ -17,7 +17,7 @@
         <div v-if="isNotListsView()">
           <select v-model="selected" class="lists-holder list-toggle">
             expand_more
-            <option value="" selected>List</option>
+            <option value="" selected>Unlisted</option>
             <option
               class="list-item"
               v-for="list in Lists"
@@ -124,7 +124,7 @@ export default {
 }
 .list-toggle {
   display: flex;
-  width: 60px;
+  width: 80px;
   height: 40px;
   align-items: center;
   justify-content: center;
@@ -141,8 +141,17 @@ export default {
   width: 60px;
   height: 40px;
   opacity: 0.9;
+  transition: all 0.1s ease-out;
 }
 .btn-primary:hover {
   opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 11px -2px rgba(37,44,97,.15),0 1px 3px 0 rgba(93,100,148,.2);
+}
+#back-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
 }
 </style>

@@ -1,33 +1,28 @@
 <template>
   <div class="app-nav">
-    <div
-      class="app-nav_btn tooltip fade"
-      data-title="Press 'm' to show the menu"
-      @click="emitMenu"
-    >
-      Menu
-      <span class="material-icons md-24 material-icons-outlined"
-        >expand_more</span
+    <div class="menu-items bar-links">
+      <router-link
+        class="menu-item router-item nav-router app-router"
+        to="/home"
+        >Home</router-link
+      >
+      <router-link
+        class="menu-item router-item nav-router app-router"
+        to="/lists"
+      >
+        Lists</router-link
       >
     </div>
   </div>
 </template>
-<script>
-export default {
-  methods: {
-    emitMenu() {
-      this.$root.$emit("nav-changed");
-    },
-  },
-};
-</script>
 <style>
 .app-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
   height: 50px;
+  margin: 50px;
+  position: sticky;
 }
 .app-nav_btn {
   display: flex;
@@ -82,5 +77,50 @@ export default {
 .tooltip.fade:hover:before {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+}
+.bar-links {
+  display: flex;
+  flex-direction: row;
+  margin-right: 42px;
+  align-items: center;
+}
+.router-item {
+  color: #a9b2be;
+  display: block;
+  height: 30px;
+  text-decoration: none;
+  font-size: large;
+  user-select: none;
+  border-radius: 10px;
+  padding: 5px;
+  transition: all 0.2s ease-out;
+}
+.router-item:hover {
+  color: black;
+}
+.app-router {
+  padding-left: 10vw;
+  padding-top: 10px;
+  padding-right: 10vw;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
+    0 1px 3px 0 rgba(93, 100, 148, 0.2);
+}
+.app-router:hover {
+  background: #e8f2ed;
+}
+.nav-router {
+  margin-left: 30px;
+}
+@media screen and (max-width: 400px) {
+  .app-router {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 </style>

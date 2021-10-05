@@ -1,7 +1,6 @@
 <template>
   <div>
     <app-navigation></app-navigation>
-    <router-menu></router-menu>
     <list-form @list-added="createList"></list-form>
     <div class="slide-container">
       <list
@@ -17,13 +16,11 @@
 <script>
 import List from "../components/List.vue";
 import ListForm from "../components/ListForm.vue";
-import RouterMenu from "../components/RouterMenu.vue";
 import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     List,
     ListForm,
-    RouterMenu,
     AppNavigation,
   },
   data() {
@@ -72,12 +69,12 @@ body {
   scroll-snap-type: x mandatory;
   overflow-x: scroll;
   display: flex;
-  margin-top: 20px;
+  padding-top: 20px;
 }
 .slide {
   scroll-snap-align: center;
   width: 100vw;
-  height: calc(80vh - 20px);
+  min-height: 70vh;
   margin-left: 25vw;
   margin-right: 25vw;
   position: relative;

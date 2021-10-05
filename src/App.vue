@@ -17,6 +17,7 @@
 }
 
 a.router-link-exact-active {
-  color: #ccc;
+  background: #e8f2ed;
+  color: black;
 }
 </style>

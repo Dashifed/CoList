@@ -122,7 +122,7 @@ export default {
 <style>
 .list {
   padding: 20px;
-  border: 2px dotted black;
+  box-shadow: 0 4px 11px -2px rgba(37,44,97,.15),0 1px 3px 0 rgba(93,100,148,.2);
   border-radius: 20px;
   box-sizing: border-box;
 }

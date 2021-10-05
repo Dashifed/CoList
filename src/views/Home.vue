@@ -1,7 +1,6 @@
 <template>
   <div>
     <app-navigation></app-navigation>
-    <router-menu></router-menu>
     <div id="main-area">
       <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
@@ -42,13 +41,11 @@
 <script>
 import ToDo from "../components/ToDo.vue";
 import ToDoForm from "../components/ToDoForm.vue";
-import RouterMenu from "../components/RouterMenu.vue";
 import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     ToDo,
     ToDoForm,
-    RouterMenu,
     AppNavigation,
   },
   data() {
