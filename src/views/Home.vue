@@ -18,7 +18,7 @@
           class="task-list-item"
         ></to-do>
       </ul>
-      <div class="completed-items">
+      <div>
         <h1 class="light-txt">Completed</h1>
         <ul class="task-list-items">
           <to-do
@@ -180,7 +180,7 @@ input {
   display: inline-block;
   cursor: pointer;
   width: 50px;
-  padding: 3px;
+  padding: 0.5rem;
   background-color: white;
   border: 1px solid #f1f1f1;
   border-radius: 5px;

@@ -1,7 +1,17 @@
 <template>
   <div :for="id" class="list heavy-txt">
     <div class="list-items">
-      <h1 class="list-name">{{ name }}</h1>
+      <div class="spaced-items">
+        <h1 class="list-name">{{ name }}</h1>
+        <span
+          class="material-icons md-24 material-icons-outlined"
+          style="display: inline-block; align-self: center"
+          @click="openCardOptions"
+        >
+          more_vert
+        </span>
+        <div class="menu-buttons"></div>
+      </div>
       <to-do-form @todo-added="addToDo"></to-do-form>
       <ul class="task-list-items">
         <to-do
@@ -17,9 +27,17 @@
           class="task-list-item"
         ></to-do>
       </ul>
-      <div class="completed-items">
-        <h2 class="light-txt">Completed</h2>
-        <ul class="task-list-items">
+      <div>
+        <div class="spaced-items">
+          <h2 class="light-txt">Completed</h2>
+          <span
+            class="material-icons md-24 material-icons-outlined"
+            style="display: inline-block; align-self: center"
+            @click="showComplete = !showComplete"
+            >expand_more</span
+          >
+        </div>
+        <ul class="task-list-items tasks-complete" v-show="showComplete">
           <to-do
             v-for="item in itemsNotFilter"
             :id="item.id"
@@ -52,6 +70,8 @@ export default {
   data() {
     return {
       ToDoItems: [],
+      showComplete: false,
+      cardOptions: false,
     };
   },
   methods: {
@@ -97,6 +117,9 @@ export default {
       const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);
       toDoToEdit.label = newLabel;
     },
+    openCardOptions() {
+      this.cardOptions = !this.cardOptions;
+    },
   },
   computed: {
     filter() {
@@ -122,21 +145,22 @@ export default {
 <style>
 .list {
   padding: 20px;
-  box-shadow: 0 4px 11px -2px rgba(37,44,97,.15),0 1px 3px 0 rgba(93,100,148,.2);
+  box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
+    0 1px 3px 0 rgba(93, 100, 148, 0.2);
   border-radius: 20px;
   box-sizing: border-box;
 }
 .list-items {
   width: 100%;
   height: 100%;
-  margin: 0;
+  margin: 20px;
 }
 .list-name {
   user-select: none;
   display: flex;
   position: relative;
   height: 30px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .heavy-txt {
   font-weight: 500;
@@ -144,7 +168,13 @@ export default {
 .light-txt {
   color: #ccc;
 }
-.completed-items {
-  justify-content: center;
+.spaced-items {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 960px) {
+  .list-name {
+    justify-content: center;
+  }
 }
 </style>
