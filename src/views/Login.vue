@@ -18,7 +18,9 @@
       >
         Log In
       </button>
-      <button class="cancelbtn signup-btn" @click="signup_switch()">Sign up instead</button>
+      <button class="cancelbtn signup-btn" @click="signup_switch()">
+        Sign up instead
+      </button>
       <span v-show="err1" class="form-message">{{ err_msg1 }}</span>
     </div>
   </div>
@@ -45,11 +47,11 @@ export default {
         })
         .then((response) => {
           localStorage.setItem("token", response.data.token);
-          router.push("/home")
+          router.push("/home").then(() => {
+            window.location.reload();
+          });
         })
-        .catch(() =>
-          this.err_msg1 = "Error"
-      );
+        .catch(() => (this.err_msg1 = "Error"));
     },
     valid_email(email, msg) {
       if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -62,13 +64,14 @@ export default {
       }
     },
     signup_switch() {
-      router.push("/register")
-    }
+      router.push("/register");
+    },
   },
   watch: {
-    email: function(value) {
+    email: function (value) {
       this.valid_email(value, "email_msg");
     },
   },
 };
 </script>
+

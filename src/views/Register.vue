@@ -25,7 +25,9 @@
       >
         Sign Up
       </button>
-      <button class="cancelbtn signup-btn" @click="signup_switch()">Log in instead</button>
+      <button class="cancelbtn signup-btn" @click="signup_switch()">
+        Log in instead
+      </button>
       <span v-show="err1" class="form-message">{{ err_msg1 }}</span>
     </div>
   </div>
@@ -105,42 +107,42 @@ export default {
         })
         .then((response) => {
           localStorage.setItem("token", response.data.token);
-          router.push("/home")
+          router.push("/home").then(() => {
+            window.location.reload();
+          });
         })
-        .catch(() =>
-          this.err_msg1 = "Error"
-      );
+        .catch(() => (this.err_msg1 = "Error"));
       this.$emit("change_comp", "results");
     },
     on_cancel() {
       router.push("/");
     },
     signup_switch() {
-      router.push("/login")
-    }
+      router.push("/login");
+    },
   },
   watch: {
-    email: function(value) {
+    email: function (value) {
       this.valid_email(value, "email_msg");
     },
-    password1: function(value) {
+    password1: function (value) {
       if (this.check_password_length(value, "pwd1_msg", 6)) {
         this.check_passwords_match();
       }
     },
-    password2: function(value) {
+    password2: function (value) {
       if (this.check_password_length(value, "pwd2_msg", 6)) {
         this.check_passwords_match();
       }
     },
   },
   mounted() {
-    const storageEmail = localStorage.getItem("formUserEmail")
+    const storageEmail = localStorage.getItem("formUserEmail");
     if (storageEmail) {
-      this.email = storageEmail
-      localStorage.removeItem("formUserEmail")
+      this.email = storageEmail;
+      localStorage.removeItem("formUserEmail");
     }
-  }
+  },
 };
 </script>
 <style>
