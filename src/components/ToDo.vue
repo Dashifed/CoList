@@ -18,44 +18,41 @@
       </div>
     </div>
     <div>
-      <span
-        class="material-icons md-24 material-icons-outlined"
-        @click="openMenu"
-        >more_horiz</span
+      <div class="icon-holder">
+        <span
+          class="material-icons md-24 material-icons-outlined"
+          @click="openMenu"
+          >more_horiz</span
+        >
+      </div>
+      <div
+        class="listbox-items menu-buttons box-shadow_menu"
+        v-show="menu_open"
       >
-      <div class="menu-buttons">
         <button
           type="button"
-          class="delete-btn"
-          v-show="menu_open"
+          class="listbox-item"
           ref="editButton"
           @click="toggleToDoEdit"
         >
           Edit
         </button>
-        <button
-          type="button"
-          class="delete-btn"
-          v-show="menu_open"
-          @click="deleteToDo"
-        >
+        <button type="button" class="listbox-item" @click="deleteToDo">
           Delete
         </button>
       </div>
     </div>
-    <div
-      v-show="menu_open"
-      id="back-cover"
-      @click="menu_open = !menu_open"
-    ></div>
+    <div v-show="menu_open" id="back-cover" @click="closeMenu"></div>
   </div>
-  <to-do-edit
-    v-else
-    :id="id"
-    :label="label"
-    @item-edited="itemEdited"
-    @edit-cancelled="editCancelled"
-  ></to-do-edit>
+  <div v-else>
+    <to-do-edit
+      :id="id"
+      :label="label"
+      @item-edited="itemEdited"
+      @edit-cancelled="editCancelled"
+    ></to-do-edit>
+    <div v-show="menu_open" id="back-cover"></div>
+  </div>
 </template>
 <script>
 import ToDoEdit from "./ToDoEdit.vue";
@@ -93,11 +90,11 @@ export default {
     },
     toggleToDoEdit() {
       this.isEditing = true;
-      this.menu_open = false;
     },
     itemEdited(newLabel) {
       this.$emit("item-edited", newLabel);
       this.isEditing = false;
+      this.menu_open = false;
       this.focusOnEditButton();
     },
     changeCheckbox() {
@@ -114,6 +111,7 @@ export default {
     },
     editCancelled() {
       this.isEditing = false;
+      this.menu_open = false;
       this.focusOnEditButton();
     },
     focusOnEditButton() {
@@ -123,7 +121,11 @@ export default {
       });
     },
     openMenu() {
-      this.menu_open = !this.menu_open;
+      this.menu_open = true;
+    },
+    closeMenu() {
+      this.menu_open = false;
+      this.isEditing = false;
     },
   },
 };

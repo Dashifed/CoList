@@ -30,9 +30,7 @@
             </option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">
-          Save
-        </button>
+        <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </div>
   </form>
@@ -94,6 +92,9 @@ export default {
   margin-bottom: 10px;
   outline: none;
 }
+.input-sm {
+  width: 50% !important;
+}
 .list-item {
   display: flex;
   position: relative;
@@ -142,16 +143,22 @@ export default {
   height: 40px;
   opacity: 0.9;
   transition: all 0.1s ease-out;
+  cursor: pointer;
 }
 .btn-primary:hover {
   opacity: 1;
   transform: scale(1.05);
-  box-shadow: 0 4px 11px -2px rgba(37,44,97,.15),0 1px 3px 0 rgba(93,100,148,.2);
+  box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
+    0 1px 3px 0 rgba(93, 100, 148, 0.2);
 }
 #back-cover {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 99;
 }
 </style>

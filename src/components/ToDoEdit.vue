@@ -4,6 +4,7 @@
       <input
         :id="id"
         ref="labelInput"
+        class="z-p"
         type="text"
         autocomplete="off"
         @keyup.enter="onSubmit"
@@ -11,9 +12,9 @@
         v-model.lazy.trim="newLabel"
       />
     </div>
-    <div>
-      <button class="delete-btn" @click="onCancel">Cancel</button>
-      <button class="delete-btn" @click="onSubmit">Save</button>
+    <div class="listbox-items menu-buttons box-shadow_menu">
+      <button class="listbox-item" @click="onCancel">Cancel</button>
+      <button class="listbox-item" @click="onSubmit">Save</button>
     </div>
   </div>
 </template>

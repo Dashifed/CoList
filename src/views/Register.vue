@@ -174,7 +174,8 @@ export default {
   cursor: pointer;
   opacity: 0.9;
 }
-.signup-btn:hover {
+.signup-btn:hover,
+.signup-btn:focus {
   opacity: 1;
 }
 .signupbtn {

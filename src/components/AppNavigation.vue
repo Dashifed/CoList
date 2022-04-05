@@ -4,25 +4,84 @@
       <router-link
         class="menu-item router-item nav-router app-router"
         to="/home"
+        replace
         >Home</router-link
       >
       <router-link
         class="menu-item router-item nav-router app-router"
         to="/lists"
+        replace
       >
         Lists</router-link
       >
     </div>
+    <div class="header-controls">
+      <div class="icon-holder">
+        <span
+          class="material-icons md-24 material-icons-outlined"
+          @click="showListCreation"
+        >
+          add_circle_outline
+        </span>
+      </div>
+    </div>
   </div>
 </template>
+<script>
+import { bus } from "../main";
+export default {
+  methods: {
+    showListCreation() {
+      bus.$emit("quickAction");
+    },
+  },
+};
+</script>
 <style>
 .app-nav {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: center;
-  height: 50px;
-  margin: 50px;
+  justify-content: space-between;
+  position: relative;
+  top: 0px;
+  padding: 1rem;
   position: sticky;
+  grid-template-columns: 0px auto 40px;
+}
+@media screen and (max-width: 1280px) {
+  .bar-links {
+    justify-self: start;
+  }
+}
+@media screen and (max-width: 960px) {
+  .app-nav {
+    grid-template-columns: 48px 1fr 1fr;
+    padding: 0;
+  }
+  .bar-links {
+    flex-direction: row;
+    -moz-box-pack: justify;
+    justify-content: space-between;
+    justify-self: center;
+    z-index: 99;
+    position: fixed;
+    bottom: 0px;
+    right: 50%;
+    transform: translate(50%, -50%);
+    margin: 0px auto;
+  }
+  .nav-router {
+    margin: 0px !important;
+  }
+  .header-controls {
+    padding-top: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  .app-nav {
+    grid-template-columns: 1fr;
+  }
 }
 .app-nav_btn {
   display: flex;
@@ -79,10 +138,21 @@
   transform: translate3d(0, 0, 0);
 }
 .bar-links {
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  gap: 10px;
+}
+.header-controls {
   display: flex;
   flex-direction: row;
-  margin-right: 42px;
+  -moz-box-align: center;
   align-items: center;
+  justify-self: flex-end;
 }
 .router-item {
   color: #a9b2be;

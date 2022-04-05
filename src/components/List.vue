@@ -3,14 +3,14 @@
     <div class="list-items">
       <div class="spaced-items">
         <h1 class="list-name">{{ name }}</h1>
-        <span
-          class="material-icons md-24 material-icons-outlined"
-          style="display: inline-block; align-self: center"
-          @click="openCardOptions"
-        >
-          more_vert
-        </span>
-        <div class="menu-buttons"></div>
+        <div class="icon-holder" style="align-self: center">
+          <span
+            class="material-icons md-24 material-icons-outlined"
+            @click="openCardOptions(id)"
+          >
+            more_vert
+          </span>
+        </div>
       </div>
       <to-do-form @todo-added="addToDo"></to-do-form>
       <ul class="task-list-items">
@@ -29,13 +29,17 @@
       </ul>
       <div>
         <div class="spaced-items">
-          <h2 class="light-txt">Completed</h2>
-          <span
-            class="material-icons md-24 material-icons-outlined"
-            style="display: inline-block; align-self: center"
-            @click="showComplete = !showComplete"
-            >expand_more</span
-          >
+          <h2 class="light-txt">
+            Completed ({{ this.itemsNotFilter.length }})
+          </h2>
+          <div class="icon-holder">
+            <span
+              class="material-icons md-24 material-icons-outlined"
+              style="display: inline-block; align-self: center"
+              @click="showComplete = !showComplete"
+              >expand_more</span
+            >
+          </div>
         </div>
         <ul class="task-list-items tasks-complete" v-show="showComplete">
           <to-do
@@ -105,20 +109,14 @@ export default {
     },
     removeTodo(toDoId) {
       const toDoToRemove = this.ToDoItems.find((item) => item.id === toDoId);
-      return this.$axios
-        .get(`${this.$baseUrl}/api/notes`, this.$config)
-        .then((response) => {
-          this.ToDoItems.splice(toDoToRemove, 1);
-          this.ToDoItems = response.data;
-        })
-        .catch((error) => console.log(error.response));
+      this.ToDoItems.splice(this.ToDoItems.indexOf(toDoToRemove), 1);
     },
     editToDo(toDoId, newLabel) {
       const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);
       toDoToEdit.label = newLabel;
     },
-    openCardOptions() {
-      this.cardOptions = !this.cardOptions;
+    openCardOptions(selectedList) {
+      this.$emit("openCardOptions", selectedList);
     },
   },
   computed: {
@@ -147,7 +145,7 @@ export default {
   padding: 20px;
   box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
     0 1px 3px 0 rgba(93, 100, 148, 0.2);
-  border-radius: 20px;
+  border-radius: 2rem;
   box-sizing: border-box;
 }
 .list-items {
@@ -159,6 +157,7 @@ export default {
   user-select: none;
   display: flex;
   position: relative;
+  align-items: center;
   height: 30px;
   justify-content: flex-start;
 }
@@ -171,10 +170,35 @@ export default {
 .spaced-items {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 @media screen and (max-width: 960px) {
   .list-name {
     justify-content: center;
   }
+}
+.icon-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+.icon-holder:hover,
+.icon-holder:focus {
+  outline: none;
+  background-color: rgba(95, 99, 104, 0.12);
+}
+.box-shadow_menu {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  background-color: white;
+}
+.z-p {
+  position: relative;
+  z-index: 100;
 }
 </style>

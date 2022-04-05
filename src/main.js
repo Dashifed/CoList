@@ -1,19 +1,19 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from './router'
-import axios from 'axios'
+import router from "./router";
+import axios from "axios";
 
 Vue.prototype.$axios = axios;
-Vue.prototype.$baseUrl = "https://co-list-app.herokuapp.com"
+Vue.prototype.$baseUrl = "https://co-list-app.herokuapp.com";
 const token = localStorage.getItem("token");
 Vue.prototype.$config = {
   headers: {
-    'Authorization': `Bearer ${token}`
-  }
-}
+    Authorization: `Bearer ${token}`,
+  },
+};
 Vue.config.productionTip = false;
-
+export const bus = new Vue();
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

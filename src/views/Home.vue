@@ -1,6 +1,13 @@
 <template>
   <div>
     <app-navigation></app-navigation>
+    <modal ref="listModal">
+      <template v-slot:header>
+        <h1>Create a new list</h1>
+      </template>
+      <template v-slot:body>
+        <list-form @list-added="createList"></list-form> </template
+    ></modal>
     <div id="main-area">
       <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
@@ -19,7 +26,9 @@
         ></to-do>
       </ul>
       <div>
-        <h1 class="light-txt">Completed</h1>
+        <h1 class="light-txt">
+          Completed items ({{ this.itemsNotFilter.length }})
+        </h1>
         <ul class="task-list-items">
           <to-do
             v-for="item in itemsNotFilter"
@@ -39,14 +48,19 @@
   </div>
 </template>
 <script>
+import { bus } from "../main";
+import Modal from "../components/Modal";
 import ToDo from "../components/ToDo.vue";
 import ToDoForm from "../components/ToDoForm.vue";
+import ListForm from "../components/ListForm.vue";
 import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     ToDo,
     ToDoForm,
     AppNavigation,
+    ListForm,
+    Modal,
   },
   data() {
     return {
@@ -83,17 +97,24 @@ export default {
     },
     removeTodo(toDoId) {
       const toDoToRemove = this.ToDoItems.find((item) => item.id === toDoId);
-      return this.$axios
-        .get(`${this.$baseUrl}/api/notes`, this.$config)
-        .then((response) => {
-          this.ToDoItems.splice(toDoToRemove, 1);
-          this.ToDoItems = response.data;
-        })
-        .catch((error) => console.log(error.response));
+      this.ToDoItems.splice(this.ToDoItems.indexOf(toDoToRemove), 1);
     },
     editToDo(toDoId, newLabel) {
       const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);
       toDoToEdit.label = newLabel;
+    },
+    createList(listName) {
+      this.$axios.post(
+        `${this.$baseUrl}/api/lists`,
+        {
+          name: listName,
+        },
+        this.$config
+      );
+      this.$refs.listModal.closeModal();
+    },
+    createListOption() {
+      this.$refs.listModal.openModal();
     },
   },
   computed: {
@@ -111,6 +132,7 @@ export default {
         this.ToDoItems = response.data;
       })
       .catch((error) => console.log(error.response));
+    bus.$on("quickAction", this.createListOption);
   },
 };
 </script>
@@ -169,27 +191,20 @@ input {
   justify-content: space-between;
   width: 50vw;
   height: 50px;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
-    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 1rem;
+  font-family: inherit;
   outline: none;
   border-bottom: 1px solid #f0f0f0;
-  z-index: 50;
 }
-.delete-btn {
-  display: inline-block;
-  cursor: pointer;
-  width: 50px;
-  padding: 0.5rem;
-  background-color: white;
-  border: 1px solid #f1f1f1;
-  border-radius: 5px;
-  margin-bottom: 2px;
+@media screen and (max-width: 720px) {
+  .task-list-item {
+    font-size: 0.75rem;
+  }
 }
 .menu-buttons {
-  display: inline-block;
   position: absolute;
-  z-index: 100;
+  top: -1rem;
+  right: -4rem;
 }
 .item-labels {
   margin-left: 1rem;
@@ -198,12 +213,10 @@ input {
 .todo-label {
   display: flex;
   align-items: center;
+  text-align: start;
 }
 .todo-list {
   font-size: 12px;
   display: flex;
-}
-.list-form {
-  margin: 20px;
 }
 </style>
