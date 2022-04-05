@@ -47,6 +47,7 @@ export default {
   padding: 1rem;
   position: sticky;
   grid-template-columns: 0px auto 40px;
+  z-index: 50;
 }
 @media screen and (max-width: 1280px) {
   .bar-links {
