@@ -132,19 +132,17 @@ body {
   scroll-snap-type: x mandatory;
   overflow-x: scroll;
   display: flex;
+  -webkit-overflow-scrolling: touch;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 .slide {
-  scroll-snap-align: center;
-  width: 100vw;
-  min-height: 80vh;
-  margin-left: 25vw;
-  margin-right: 25vw;
+  scroll-snap-align: start;
+  min-width: 100vw;
+  height: 80vh;
   position: relative;
-  display: flex;
-  align-items: center;
   text-align: center;
+  display: flex;
   justify-content: center;
 }
 .overflow-hidden {

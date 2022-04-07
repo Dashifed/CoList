@@ -157,6 +157,7 @@ export default {
 }
 .router-item {
   color: #a9b2be;
+  background-color: white;
   display: block;
   height: 30px;
   text-decoration: none;
@@ -165,8 +166,10 @@ export default {
   border-radius: 10px;
   padding: 5px;
   transition: all 0.2s ease-out;
+  outline: none;
 }
-.router-item:hover {
+.router-item:hover,
+.router-item:focus {
   color: black;
 }
 .app-router {
@@ -182,7 +185,8 @@ export default {
   box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
     0 1px 3px 0 rgba(93, 100, 148, 0.2);
 }
-.app-router:hover {
+.app-router:hover,
+.app-router:focus {
   background: #e8f2ed;
 }
 .nav-router {
