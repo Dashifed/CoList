@@ -56,7 +56,7 @@ export default {
 }
 @media screen and (max-width: 960px) {
   .app-nav {
-    grid-template-columns: 48px 1fr 1fr;
+    grid-template-columns: 1fr;
     padding: 0;
   }
   .bar-links {
@@ -77,11 +77,6 @@ export default {
   .header-controls {
     padding-top: 1rem;
     padding-right: 1rem;
-  }
-}
-@media screen and (max-width: 700px) {
-  .app-nav {
-    grid-template-columns: 1fr;
   }
 }
 .app-nav_btn {
