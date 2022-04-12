@@ -6,24 +6,26 @@
           <img
             alt="List logo"
             src="../assets/Plugin icon.svg"
-            style="width: 42px; height: 42px;"
+            style="width: 42px; height: 42px"
           />
         </div>
-        <div style="display: flex; align-items: center;"><h2 style="user-select: none; margin-left: 20px;">colist</h2></div>
+        <div style="display: flex; align-items: center">
+          <h2 style="user-select: none; margin-left: 20px">colist</h2>
+        </div>
       </div>
       <div class="router-links">
         <router-link class="router-item nav-router" to="/home">app</router-link>
         <router-link class="router-item nav-router" to="/">home</router-link>
         <div
           class="router-item nav-router"
-          style="cursor: pointer;"
+          style="cursor: pointer"
           @click="login"
         >
           log in
         </div>
         <div
           class="router-item nav-router"
-          style="cursor: pointer;"
+          style="cursor: pointer"
           @click="logout"
         >
           log out
@@ -51,7 +53,7 @@
         Sign Up
       </button>
     </form>
-    <span v-if="email.length > 1" style="font-size: 1em; font-weight: 600;">{{
+    <span v-if="email.length > 1" style="font-size: 1em; font-weight: 600">{{
       email_msg
     }}</span>
     <div class="divider"></div>
@@ -59,10 +61,10 @@
       <div class="links-column">
         <router-link class="router-item" to="/home">app</router-link>
         <router-link class="router-item" to="/">home</router-link>
-        <div class="router-item" style="cursor: pointer;" @click="login">
+        <div class="router-item" style="cursor: pointer" @click="login">
           log in
         </div>
-        <div class="router-item" style="cursor: pointer;" @click="logout">
+        <div class="router-item" style="cursor: pointer" @click="logout">
           log out
         </div>
       </div>
@@ -110,7 +112,7 @@ export default {
     },
   },
   watch: {
-    email: function(value) {
+    email: function (value) {
       this.valid_email(value, "email_msg");
     },
   },
@@ -176,7 +178,7 @@ export default {
 }
 .field-email {
   font-size: 1.25em;
-  font-weight: 800;
+  font-weight: 600;
   background: #e8f2ed !important;
   color: #a9b2be;
   padding-right: 25px !important;

@@ -5,24 +5,54 @@
         class="menu-item router-item nav-router app-router"
         to="/home"
         replace
-        >Home</router-link
-      >
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          /></svg
+      ></router-link>
       <router-link
         class="menu-item router-item nav-router app-router"
         to="/lists"
         replace
       >
-        Lists</router-link
-      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          /></svg
+      ></router-link>
     </div>
     <div class="header-controls">
-      <div class="icon-holder">
-        <span
-          class="material-icons md-24 material-icons-outlined"
-          @click="showListCreation"
+      <div class="icon-holder" @click="showListCreation">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
-          add_circle_outline
-        </span>
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+            clip-rule="evenodd"
+          />
+        </svg>
       </div>
     </div>
   </div>
@@ -93,46 +123,6 @@ export default {
   background: #f5f5f7;
   padding: 10px;
 }
-.tooltip {
-  position: relative;
-}
-.tooltip:before,
-.tooltip:after {
-  display: block;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-.tooltip:after {
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid rgba(0, 0, 0, 0.75);
-  border-left: 6px solid transparent;
-  content: "";
-  height: 0;
-  top: 50px;
-  left: 20px;
-  width: 0;
-}
-.tooltip:before {
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 2px;
-  color: #fff;
-  content: attr(data-title);
-  font-size: 14px;
-  padding: 6px 10px;
-  top: 56px;
-  white-space: nowrap;
-}
-.tooltip.fade:after,
-.tooltip.fade:before {
-  transform: translate3d(0, -10px, 0);
-  transition: all 0.15s ease-in-out;
-}
-.tooltip.fade:hover:after,
-.tooltip.fade:hover:before {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
 .bar-links {
   flex-direction: row;
   align-items: center;
@@ -192,5 +182,17 @@ export default {
     padding-left: 30px;
     padding-right: 30px;
   }
+}
+.h-6 {
+  height: 1.5rem;
+}
+.w-6 {
+  height: 1.5rem;
+}
+.h-5 {
+  height: 1.25rem;
+}
+.w-5 {
+  height: 1.25rem;
 }
 </style>

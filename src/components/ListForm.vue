@@ -2,7 +2,6 @@
   <form @submit.prevent="onSubmit">
     <input
       type="text"
-      id="new-list-input"
       name="new-list"
       autocomplete="off"
       v-model.lazy.trim="name"

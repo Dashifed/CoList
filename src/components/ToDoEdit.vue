@@ -4,12 +4,13 @@
       <input
         :id="id"
         ref="labelInput"
-        class="z-p"
+        class="z-p input-lg"
         type="text"
         autocomplete="off"
         @keyup.enter="onSubmit"
         @keyup.esc="onCancel"
         v-model.lazy.trim="newLabel"
+        maxlength="40"
       />
     </div>
     <div class="listbox-items menu-buttons box-shadow_menu">

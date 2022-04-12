@@ -4,13 +4,25 @@
       <div class="list-items">
         <div class="spaced-items">
           <h1 class="list-name">{{ name }}</h1>
-          <div class="icon-holder" style="align-self: center">
-            <span
-              class="material-icons md-24 material-icons-outlined"
-              @click="openCardOptions(id)"
+          <div
+            class="icon-holder"
+            style="align-self: center"
+            @click="openCardOptions(id)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
             >
-              more_vert
-            </span>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+              />
+            </svg>
           </div>
         </div>
         <to-do-form @todo-added="addToDo"></to-do-form>
@@ -34,12 +46,20 @@
               Completed ({{ this.itemsNotFilter.length }})
             </h2>
             <div class="icon-holder">
-              <span
-                class="material-icons md-24 material-icons-outlined"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="#ccc"
                 style="display: inline-block; align-self: center"
                 @click="showComplete = !showComplete"
-                >expand_more</span
               >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 110-2h4a1 1 0 011 1v4a1 1 0 11-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 112 0v1.586l2.293-2.293a1 1 0 011.414 1.414L6.414 15H8a1 1 0 110 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 110-2h1.586l-2.293-2.293a1 1 0 011.414-1.414L15 13.586V12a1 1 0 011-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
             </div>
           </div>
           <ul class="task-list-items tasks-complete" v-show="showComplete">
@@ -186,6 +206,7 @@ export default {
   width: 30px;
   height: 30px;
   position: relative;
+  cursor: pointer;
 }
 .icon-holder:hover,
 .icon-holder:focus {

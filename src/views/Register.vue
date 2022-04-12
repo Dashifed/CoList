@@ -172,11 +172,6 @@ export default {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  opacity: 0.9;
-}
-.signup-btn:hover,
-.signup-btn:focus {
-  opacity: 1;
 }
 .signupbtn {
   color: white;

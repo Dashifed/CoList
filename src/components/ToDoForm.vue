@@ -16,7 +16,20 @@
       <div class="bottom-toolbar" v-show="inputFocus">
         <div v-if="isNotListsView()">
           <select v-model="selected" class="lists-holder list-toggle">
-            expand_more
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
             <option value="" selected>Unlisted</option>
             <option
               class="list-item"
@@ -87,10 +100,17 @@ export default {
 .input-lg:focus {
   width: 50vw;
   height: 40px;
-  border: none;
-  border-bottom: 2px solid #ccc;
+  border: medium none;
   margin-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 16px;
   outline: none;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+.input-lg:focus {
+  box-shadow: inset 0px 0px 0px 3px #000000;
 }
 .input-sm {
   width: 50% !important;
@@ -133,6 +153,7 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+  outline: none;
 }
 .btn-primary {
   background: black;
@@ -141,12 +162,12 @@ export default {
   border-radius: 10px;
   width: 60px;
   height: 40px;
-  opacity: 0.9;
   transition: all 0.1s ease-out;
   cursor: pointer;
+  outline: none;
 }
-.btn-primary:hover {
-  opacity: 1;
+.btn-primary:hover,
+.btn-primary:focus {
   transform: scale(1.05);
   box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
     0 1px 3px 0 rgba(93, 100, 148, 0.2);

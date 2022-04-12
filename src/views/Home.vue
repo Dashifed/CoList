@@ -137,24 +137,13 @@ export default {
 };
 </script>
 <style>
-.material-icons {
-  cursor: pointer;
-}
-.material-icons.md-18 {
-  font-size: 18px;
-}
-.material-icons.md-24 {
-  font-size: 24px;
-  user-select: none;
-}
-.material-icons.md-36 {
-  font-size: 36px;
-}
-.material-icons.md-48 {
-  font-size: 48px;
-}
 input {
   font-size: 16px;
+}
+@media screen and (max-width: 720px) {
+  input {
+    font-size: 14px;
+  }
 }
 #main-area {
   padding-top: 36px;
@@ -203,8 +192,7 @@ input {
 }
 .menu-buttons {
   position: absolute;
-  top: -1rem;
-  right: -4rem;
+  top: 3rem;
 }
 .item-labels {
   margin-left: 1rem;
