@@ -1,39 +1,42 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import HomePage from '../views/HomePage.vue'
-import Register from '../views/Register.vue'
-import Login from '../views/Login.vue'
-import Lists from '../views/Lists.vue'
-import axios from 'axios'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import VueMeta from "vue-meta";
+import Home from "../views/Home.vue";
+import HomePage from "../views/HomePage.vue";
+import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
+import Lists from "../views/Lists.vue";
+import axios from "axios";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+Vue.use(VueMeta);
 
 function guardMyroute(to, from, next) {
   const token = localStorage.getItem("token");
   const config = {
     headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }
-  axios.get("https://co-list-app.herokuapp.com/auth", config)
-  .then(() => {
-    next()
-  })
-  .catch(() => {
-    next('/login')
-  })
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios
+    .get("https://co-list-app.herokuapp.com/auth", config)
+    .then(() => {
+      next();
+    })
+    .catch(() => {
+      next("/login");
+    });
 }
 const routes = [
   {
-    path: '/',
-    name: 'HomePage',
+    path: "/",
+    name: "HomePage",
     component: HomePage,
-    meta: { title: 'Home' },
+    meta: { title: "Home" },
   },
   {
-    path: '/lists',
-    name: 'Lists',
+    path: "/lists",
+    name: "Lists",
     component: Lists,
     beforeEnter: guardMyroute,
   },
@@ -47,20 +50,20 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-    meta: { title: 'Register' },
+    meta: { title: "Register" },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    meta: { title: 'Login' },
-  }
-]
+    meta: { title: "Login" },
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

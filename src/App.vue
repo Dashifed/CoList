@@ -3,7 +3,27 @@
     <router-view />
   </div>
 </template>
-
+<script>
+export default {
+  name: "CoList",
+  title: "CoList",
+  htmlAttrs: {
+    lang: "en-US",
+  },
+  meta: [
+    { charset: "utf-8" },
+    {
+      name: "title",
+      content: "CoList",
+    },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      name: "description",
+      content: "CoList is a todolist reimagined for an intuitive experience",
+    },
+  ],
+};
+</script>
 <style>
 #app {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
