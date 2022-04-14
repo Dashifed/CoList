@@ -142,7 +142,7 @@ input {
 }
 @media screen and (max-width: 720px) {
   input {
-    font-size: 14px;
+    font-weight: normal !important;
   }
 }
 #main-area {
