@@ -99,15 +99,19 @@ export default {
 .input-lg,
 .input-lg:focus {
   width: 50vw;
-  height: 40px;
   border: medium none;
   margin-bottom: 10px;
   padding-left: 16px;
   padding-right: 16px;
   border-radius: 16px;
   outline: none;
+  -webkit-appearance: none;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
   font-weight: 600;
+  line-height: 1;
+  height: 54px;
+  box-sizing: inherit;
 }
 .input-lg:focus {
   box-shadow: inset 0px 0px 0px 3px #000000;

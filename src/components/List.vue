@@ -222,5 +222,6 @@ export default {
 .z-p {
   position: relative;
   z-index: 100;
+  height: 40px !important;
 }
 </style>

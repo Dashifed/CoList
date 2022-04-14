@@ -140,11 +140,6 @@ export default {
 input {
   font-size: 16px;
 }
-@media screen and (max-width: 720px) {
-  input {
-    font-weight: normal !important;
-  }
-}
 #main-area {
   padding-top: 36px;
 }
@@ -186,6 +181,9 @@ input {
   border-bottom: 1px solid #f0f0f0;
 }
 @media screen and (max-width: 720px) {
+  input {
+    font-weight: normal !important;
+  }
   .task-list-item {
     font-size: 0.75rem;
   }
