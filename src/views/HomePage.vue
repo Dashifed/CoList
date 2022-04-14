@@ -5,7 +5,7 @@
         <div class="list-logo">
           <img
             alt="List logo"
-            src="../assets/Plugin icon.svg"
+            src="../assets/favicon.svg"
             style="width: 42px; height: 42px"
           />
         </div>
