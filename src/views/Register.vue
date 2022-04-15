@@ -176,6 +176,12 @@ export default {
 .signupbtn {
   color: white;
   border: 1px solid black;
+  transition: all 0.2s ease 0s;
+}
+.signupbtn:hover,
+.signupbtn:focus {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 .cancelbtn {
   padding: 14px 20px;
@@ -199,7 +205,7 @@ export default {
 .signup-app {
   margin: 50px;
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 960px) {
   .cancelbtn,
   .signupbtn {
     width: 100%;

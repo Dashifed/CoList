@@ -181,7 +181,7 @@ input {
   border-bottom: 1px solid #f0f0f0;
 }
 @media screen and (max-width: 720px) {
-  input {
+  .input-lg {
     font-weight: normal !important;
   }
 }

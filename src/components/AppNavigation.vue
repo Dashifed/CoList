@@ -152,10 +152,7 @@ export default {
   padding: 5px;
   transition: all 0.2s ease-out;
   outline: none;
-}
-.router-item:hover,
-.router-item:focus {
-  color: black;
+  font-weight: 600;
 }
 .app-router {
   padding-left: 10vw;
@@ -172,7 +169,6 @@ export default {
 }
 .app-router:hover,
 .app-router:focus {
-  background: #e8f2ed;
   transform: scale(1.05);
 }
 .nav-router {

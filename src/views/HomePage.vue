@@ -140,7 +140,7 @@ export default {
   left: 42px;
   margin-bottom: 0px;
   top: 2px;
-  transition: all 0.125s ease 0s;
+  transition: all 0.2s ease 0s;
   user-select: none;
   width: 42px;
   will-change: transform;
@@ -179,31 +179,36 @@ export default {
 .field-email {
   font-size: 1.25em;
   font-weight: 600;
-  background: #e8f2ed !important;
-  color: #a9b2be;
+  background: none !important;
   padding-right: 25px !important;
+  transition: all 0.2s ease 0s;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
 }
 .field-email:focus,
 .field-email:hover {
-  background: #d8e2ed !important;
   transform: scale(1.05);
 }
 .link-button {
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: 600;
   background: black;
   color: white;
   border: none;
-  border-radius: 1em;
+  border-radius: 16px;
   padding-top: 18px;
   padding-right: 50px;
   padding-bottom: 18px;
   padding-left: 50px;
   margin: 5px 0 22px 10px;
   display: inline-block;
+  transition: all 0.2s ease 0s;
 }
-.link-button:hover {
+.link-button:hover,
+.link-button:focus {
   transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 .divider {
   background: hsla(222, 6%, 43%, 0.04);
