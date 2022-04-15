@@ -184,9 +184,6 @@ input {
   input {
     font-weight: normal !important;
   }
-  .task-list-item {
-    font-size: 0.75rem;
-  }
 }
 .menu-buttons {
   position: absolute;

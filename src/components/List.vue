@@ -50,7 +50,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
                 viewBox="0 0 20 20"
-                fill="#ccc"
+                fill="#7F7F7F"
                 style="display: inline-block; align-self: center"
                 @click="showComplete = !showComplete"
               >
@@ -169,7 +169,7 @@ export default {
     0 1px 3px 0 rgba(93, 100, 148, 0.2);
   border-radius: 2rem;
   box-sizing: border-box;
-  width: 70vw;
+  width: 60vw;
 }
 .list-items {
   margin: 20px;
@@ -186,7 +186,7 @@ export default {
   font-weight: 500;
 }
 .light-txt {
-  color: #ccc;
+  color: #7f7f7f;
 }
 .spaced-items {
   display: flex;
@@ -194,8 +194,14 @@ export default {
   align-items: center;
 }
 @media screen and (max-width: 960px) {
+  .list {
+    width: 80vw;
+  }
   .list-name {
     justify-content: center;
+  }
+  .task-list-item {
+    width: 70vw;
   }
 }
 .icon-holder {

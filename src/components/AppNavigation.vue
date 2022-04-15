@@ -173,6 +173,7 @@ export default {
 .app-router:hover,
 .app-router:focus {
   background: #e8f2ed;
+  transform: scale(1.05);
 }
 .nav-router {
   margin-left: 30px;
