@@ -8,6 +8,31 @@
       <template v-slot:body>
         <list-form @list-added="createList"></list-form> </template
     ></modal>
+    <modal ref="errorModal">
+      <template v-slot:body>
+        <h2>{{ listError }}</h2>
+        <div class="listbox-items">
+          <button
+            class="listbox-item option-txt"
+            @click="$refs.errorModal.closeModal()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 supp-txt"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Okay
+          </button>
+        </div>
+      </template>
+    </modal>
     <div id="main-area">
       <to-do-form @todo-added="addToDo"></to-do-form>
       <router-view></router-view>
@@ -104,13 +129,20 @@ export default {
       toDoToEdit.label = newLabel;
     },
     createList(listName) {
-      this.$axios.post(
-        `${this.$baseUrl}/api/lists`,
-        {
-          name: listName,
-        },
-        this.$config
-      );
+      this.$axios
+        .post(
+          `${this.$baseUrl}/api/lists`,
+          {
+            name: listName,
+          },
+          this.$config
+        )
+        .catch(
+          (error) => (
+            this.$refs.errorModal.openModal(),
+            (this.listError = error.response.data.error)
+          )
+        );
       this.$refs.listModal.closeModal();
     },
     createListOption() {

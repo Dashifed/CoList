@@ -166,12 +166,13 @@ export default {
   border-radius: 10px;
   width: 60px;
   height: 40px;
-  transition: all 0.1s ease-out;
+  transition: transform 0.1s ease-in-out;
   cursor: pointer;
   outline: none;
 }
 .btn-primary:hover,
 .btn-primary:focus {
+  -webkit-transform: scale(1.05);
   transform: scale(1.05);
   box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15),
     0 1px 3px 0 rgba(93, 100, 148, 0.2);

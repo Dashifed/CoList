@@ -140,13 +140,14 @@ export default {
   left: 42px;
   margin-bottom: 0px;
   top: 2px;
-  transition: all 0.2s ease 0s;
+  transition: transform 0.2s ease-in-out 0s;
   user-select: none;
   width: 42px;
   will-change: transform;
   z-index: 50;
 }
 .list-logo:hover {
+  -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 .router-links {
@@ -181,13 +182,14 @@ export default {
   font-weight: 600;
   background: none !important;
   padding-right: 25px !important;
-  transition: all 0.2s ease 0s;
+  transition: transform 0.2s ease-in-out 0s;
   border: none;
   outline: none;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
 }
 .field-email:focus,
 .field-email:hover {
+  -webkit-transform: scale(1.05);
   transform: scale(1.05);
 }
 .link-button {
@@ -203,10 +205,11 @@ export default {
   padding-left: 50px;
   margin: 5px 0 22px 10px;
   display: inline-block;
-  transition: all 0.2s ease 0s;
+  transition: transform 0.2s ease-in-out 0s;
 }
 .link-button:hover,
 .link-button:focus {
+  -webkit-transform: scale(1.05);
   transform: scale(1.05);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }

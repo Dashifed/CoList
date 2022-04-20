@@ -10,10 +10,9 @@
           <button class="listbox-item option-txt" @click="deleteList()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              class="h-5 w-5 supp-txt"
               viewBox="0 0 20 20"
               fill="currentColor"
-              style="margin-right: 0.5rem"
             >
               <path
                 fill-rule="evenodd"
@@ -22,6 +21,25 @@
               />
             </svg>
             Delete
+          </button>
+          <hr />
+          <button
+            class="listbox-item option-txt"
+            @click="$refs.listOptionsModal.closeModal()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 supp-txt"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Cancel
           </button>
         </div>
       </template>
@@ -34,6 +52,31 @@
       <template v-slot:body>
         <list-form @list-added="createList"></list-form> </template
     ></modal>
+    <modal ref="errorModal">
+      <template v-slot:body>
+        <h2>{{ listError }}</h2>
+        <div class="listbox-items">
+          <button
+            class="listbox-item option-txt"
+            @click="$refs.errorModal.closeModal()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 supp-txt"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Okay
+          </button>
+        </div>
+      </template>
+    </modal>
     <div class="slide-container">
       <list
         v-for="item in Lists"
@@ -63,6 +106,7 @@ export default {
     return {
       Lists: [],
       openList: null,
+      listError: "",
     };
   },
   methods: {
@@ -84,7 +128,12 @@ export default {
             })
             .catch((error) => console.log(error.response));
         })
-        .catch((error) => console.log(error.response));
+        .catch(
+          (error) => (
+            this.$refs.errorModal.openModal(),
+            (this.listError = error.response.data.error)
+          )
+        );
       this.$refs.listModal.closeModal();
     },
     deleteList() {
@@ -171,5 +220,8 @@ body {
 .option-txt {
   font-weight: 600;
   font-size: 1rem;
+}
+.supp-txt {
+  margin-right: 0.5rem;
 }
 </style>

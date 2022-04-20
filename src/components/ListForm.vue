@@ -6,6 +6,7 @@
       autocomplete="off"
       v-model.lazy.trim="name"
       class="input-lg input-sm"
+      maxlength="15"
       placeholder="Type to create a new list"
       @focus="inputFocus = true"
     />
