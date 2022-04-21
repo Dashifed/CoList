@@ -138,14 +138,12 @@ export default {
     },
     deleteList() {
       this.$refs.listOptionsModal.closeModal();
-      this.$axios
-        .delete(`${this.$baseUrl}/api/lists/` + this.openList, this.$config)
-        .then(() => {
-          const listToRemove = this.Lists.find(
-            (list) => list.id === this.openList
-          );
-          this.Lists.splice(this.Lists.indexOf(listToRemove), 1);
-        });
+      const listToRemove = this.Lists.find((list) => list.id === this.openList);
+      this.Lists.splice(this.Lists.indexOf(listToRemove), 1);
+      this.$axios.delete(
+        `${this.$baseUrl}/api/lists/` + this.openList,
+        this.$config
+      );
       this.openList = null;
     },
     openListOptions(selectedList) {
@@ -183,7 +181,7 @@ body {
 .slide {
   scroll-snap-align: start;
   min-width: 100vw;
-  height: 80vh;
+  min-height: 80vh;
   position: relative;
   text-align: center;
   display: flex;
