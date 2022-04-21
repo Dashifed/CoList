@@ -19,7 +19,7 @@ function guardMyroute(to, from, next) {
     },
   };
   axios
-    .get("https://co-list-app.herokuapp.com/auth", config)
+    .get(process.env.VUE_APP_ROOT_API + "/auth", config)
     .then(() => {
       next();
     })

@@ -4,7 +4,7 @@ import router from "./router";
 import axios from "axios";
 
 Vue.prototype.$axios = axios;
-Vue.prototype.$baseUrl = "https://co-list-app.herokuapp.com";
+Vue.prototype.$baseUrl = process.env.VUE_APP_ROOT_API;
 const token = localStorage.getItem("token");
 Vue.prototype.$config = {
   headers: {
