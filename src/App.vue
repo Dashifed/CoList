@@ -14,13 +14,13 @@ export default {
       title: "CoList",
       meta: [
         { charset: "utf-8" },
-        {
-          name: "title",
-          content: "CoList",
-        },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-          name: "description",
+          property: "og:title",
+          content: "CoList",
+        },
+        {
+          property: "og:description",
           content:
             "CoList is a todolist reimagined for an intuitive experience",
         },
@@ -31,18 +31,6 @@ export default {
         {
           name: "twitter:card",
           content: "summary_large_image",
-        },
-        {
-          name: "twitter:title",
-          content: "CoList",
-        },
-        {
-          name: "twitter:site",
-          content: "@colovskii",
-        },
-        {
-          name: "twitter:image",
-          content: "https://co-list.vercel.app/opengraph.jpg",
         },
       ],
     };
