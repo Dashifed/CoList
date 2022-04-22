@@ -6,22 +6,47 @@
 <script>
 export default {
   name: "CoList",
-  title: "CoList",
   htmlAttrs: {
     lang: "en-US",
   },
-  meta: [
-    { charset: "utf-8" },
-    {
-      name: "title",
-      content: "CoList",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    {
-      name: "description",
-      content: "CoList is a todolist reimagined for an intuitive experience",
-    },
-  ],
+  metaInfo() {
+    return {
+      title: "CoList",
+      meta: [
+        { charset: "utf-8" },
+        {
+          name: "title",
+          content: "CoList",
+        },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        {
+          name: "description",
+          content:
+            "CoList is a todolist reimagined for an intuitive experience",
+        },
+        {
+          property: "og:image",
+          content: "https://co-list.vercel.app/opengraph.jpg",
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
+          name: "twitter:title",
+          content: "CoList",
+        },
+        {
+          name: "twitter:site",
+          content: "@colovskii",
+        },
+        {
+          name: "twitter:image",
+          content: "https://co-list.vercel.app/opengraph.jpg",
+        },
+      ],
+    };
+  },
 };
 </script>
 <style>
