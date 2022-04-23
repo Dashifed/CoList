@@ -16,6 +16,10 @@ export default {
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
           property: "og:title",
           content: "CoList",
         },
@@ -27,10 +31,6 @@ export default {
         {
           property: "og:image",
           content: "https://co-list.vercel.app/opengraph.jpg",
-        },
-        {
-          name: "twitter:card",
-          content: "summary_large_image",
         },
       ],
     };
