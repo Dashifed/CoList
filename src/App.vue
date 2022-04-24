@@ -16,20 +16,37 @@ export default {
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-        {
           property: "og:title",
           content: "CoList",
         },
         {
           property: "og:description",
           content:
-            "CoList is a todolist reimagined for an intuitive experience",
+            "CoList is a platform for creators, developers and daily users reimagined from the ground up with only the most necessary features you need.",
         },
         {
           property: "og:image",
+          content: "https://co-list.vercel.app/opengraph.jpg",
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
+          name: "twitter:site",
+          content: "@colovskii",
+        },
+        {
+          name: "twitter:title",
+          content: "CoList",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "CoList is a platform for creators, developers and daily users reimagined from the ground up with only the most necessary features you need.",
+        },
+        {
+          name: "twitter:image",
           content: "https://co-list.vercel.app/opengraph.jpg",
         },
       ],
