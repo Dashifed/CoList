@@ -68,7 +68,7 @@ export default {
 }
 
 a.router-link-exact-active {
-  background: #000000;
+  background: black;
   color: white;
 }
 </style>

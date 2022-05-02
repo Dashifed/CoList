@@ -186,13 +186,55 @@ input {
   align-items: center;
 }
 #nav a {
-  font-weight: bold;
+  font-weight: 600;
   color: #42b983;
   text-decoration: none;
 }
 .custom-checkbox {
   margin-right: 1rem;
   display: flex;
+}
+.form-control {
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+}
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: black;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid black;
+  border-radius: 1rem;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  align-self: center;
+}
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em black;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid black;
+  outline-offset: max(2px, 0.15em);
+}
+.form-control + .form-control {
+  margin-top: 1em;
 }
 .task-list-items {
   display: grid;
@@ -229,6 +271,8 @@ input {
   display: flex;
   align-items: center;
   text-align: start;
+  font-weight: 600;
+  line-height: 1.1;
 }
 .todo-list {
   font-size: 12px;

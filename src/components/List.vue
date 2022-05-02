@@ -183,7 +183,7 @@ export default {
   justify-content: flex-start;
 }
 .heavy-txt {
-  font-weight: 500;
+  font-weight: 600;
 }
 .light-txt {
   color: #7f7f7f;

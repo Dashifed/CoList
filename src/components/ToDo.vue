@@ -3,7 +3,7 @@
     <div class="custom-checkbox">
       <input
         type="checkbox"
-        class="checkbox"
+        class="form-control"
         :id="id"
         :checked="isDone"
         @change="changeCheckbox"
@@ -11,9 +11,6 @@
       <div class="item-labels">
         <label class="todo-label" :for="id">
           {{ label }}
-        </label>
-        <label class="todo-list" :for="id" v-show="list">
-          {{ list }}
         </label>
       </div>
     </div>

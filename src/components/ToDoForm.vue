@@ -114,10 +114,11 @@ export default {
   box-sizing: inherit;
 }
 .input-lg:focus {
-  box-shadow: inset 0px 0px 0px 3px #000000;
+  box-shadow: inset 0px 0px 0px 3px black;
 }
 .input-sm {
   width: 50% !important;
+  margin-right: 1rem;
 }
 .list-item {
   display: flex;
