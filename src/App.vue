@@ -22,31 +22,14 @@ export default {
         {
           property: "og:description",
           content:
-            "CoList is a platform for creators, developers and daily users reimagined from the ground up with only the most necessary features you need.",
+            "CoList is reimagined todo list for creatives, intellectuals and daily users who expect simplicity in their thoughts.",
+        },
+        {
+          property: "og:url",
+          content: "https://co-list.vercel.app/",
         },
         {
           property: "og:image",
-          content: "https://co-list.vercel.app/opengraph.jpg",
-        },
-        {
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-        {
-          name: "twitter:site",
-          content: "@colovskii",
-        },
-        {
-          name: "twitter:title",
-          content: "CoList",
-        },
-        {
-          name: "twitter:description",
-          content:
-            "CoList is a platform for creators, developers and daily users reimagined from the ground up with only the most necessary features you need.",
-        },
-        {
-          name: "twitter:image",
           content: "https://co-list.vercel.app/opengraph.jpg",
         },
       ],
