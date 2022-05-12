@@ -219,6 +219,9 @@ export default {
   outline: none;
   background-color: rgba(95, 99, 104, 0.12);
 }
+.self-center {
+  align-self: center;
+}
 .box-shadow_menu {
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),

@@ -33,7 +33,7 @@
       </div>
     </nav>
     <div class="main-content">
-      <h1 class="headline">Your Todo List. Reimagined</h1>
+      <h1 class="headline">Your thoughts. Simplified.</h1>
     </div>
     <form class="button-wrapper" @submit.prevent="showSignup">
       <input
@@ -90,7 +90,7 @@ export default {
         this.disable_btn = false;
         return true;
       } else {
-        this[msg] = "Keep typing...waiting for a valid email";
+        this[msg] = "Enter a valid email address";
         this.disable_btn = true;
         return false;
       }

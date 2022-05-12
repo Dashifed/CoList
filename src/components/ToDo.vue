@@ -14,7 +14,7 @@
         </label>
       </div>
     </div>
-    <div>
+    <div class="self-center">
       <div class="icon-holder">
         <svg
           xmlns="http://www.w3.org/2000/svg"

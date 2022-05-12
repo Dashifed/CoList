@@ -56,7 +56,7 @@ export default {
         this[msg] = "";
         return true;
       } else {
-        this[msg] = "Keep typing...waiting for a valid email";
+        this[msg] = "Enter a valid email address";
         return false;
       }
     },

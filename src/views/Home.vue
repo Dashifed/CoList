@@ -166,6 +166,9 @@ export default {
       .catch((error) => console.log(error.response));
     bus.$on("quickAction", this.createListOption);
   },
+  beforeDestroy() {
+    bus.$off("quickAction", this.createListOption);
+  },
 };
 </script>
 <style>

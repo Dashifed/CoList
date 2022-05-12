@@ -59,7 +59,7 @@ export default {
         this.disable_btn = false;
         return true;
       } else {
-        this[msg] = "Keep typing...waiting for a valid email";
+        this[msg] = "Enter a valid email address";
         return false;
       }
     },
