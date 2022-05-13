@@ -78,7 +78,7 @@
       </template>
     </modal>
     <div class="light-txt center-fixed" v-show="emptyLists">
-      <h1>Start creating a list by clicking the toolbar icon</h1>
+      <h1>Start creating a list by clicking on the toolbar button</h1>
     </div>
     <div class="slide-container">
       <list
