@@ -77,6 +77,9 @@
         </div>
       </template>
     </modal>
+    <div class="light-txt center-fixed" v-show="emptyLists">
+      <h1>Start creating a list by clicking the toolbar icon</h1>
+    </div>
     <div class="slide-container">
       <list
         v-for="item in Lists"
@@ -107,6 +110,7 @@ export default {
       Lists: [],
       openList: null,
       listError: "",
+      emptyLists: false,
     };
   },
   methods: {
@@ -125,6 +129,7 @@ export default {
             .get(`${this.$baseUrl}/api/lists`, this.$config)
             .then((response) => {
               this.Lists = response.data;
+              this.emptyLists = false;
             })
             .catch((error) => console.log(error.response));
         })
@@ -159,6 +164,9 @@ export default {
       .get(`${this.$baseUrl}/api/lists`, this.$config)
       .then((response) => {
         this.Lists = response.data;
+        if (!this.Lists.length) {
+          this.emptyLists = true;
+        }
       })
       .catch((error) => console.log(error.response));
     bus.$on("quickAction", this.createListOption);
@@ -172,6 +180,12 @@ export default {
 html,
 body {
   margin: 0;
+}
+.center-fixed {
+  width: 100vw;
+  height: 80vh;
+  display: grid;
+  place-items: center;
 }
 .slide-container {
   scroll-snap-type: x mandatory;
