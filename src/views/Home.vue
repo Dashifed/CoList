@@ -214,22 +214,23 @@ input[type="checkbox"] {
   margin: 0;
   font: inherit;
   color: black;
-  width: 1.15em;
-  height: 1.15em;
-  border: 0.15em solid black;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 0.15rem solid black;
   border-radius: 1rem;
-  transform: translateY(-0.075em);
+  transform: translateY(-0.075rem);
   display: grid;
   place-content: center;
   align-self: center;
+  position: absolute;
 }
 input[type="checkbox"]::before {
   content: "";
-  width: 0.65em;
-  height: 0.65em;
+  width: 0.65rem;
+  height: 0.65rem;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em black;
+  box-shadow: inset 1rem 1rem black;
   background-color: #fff;
   border-radius: 1rem;
 }
@@ -237,11 +238,11 @@ input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
 input[type="checkbox"]:focus {
-  outline: max(2px, 0.15em) solid black;
-  outline-offset: max(2px, 0.15em);
+  outline: max(2px, 0.15rem) solid black;
+  outline-offset: max(2px, 0.15rem);
 }
 .form-control + .form-control {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 .task-list-items {
   display: grid;
@@ -271,7 +272,7 @@ input[type="checkbox"]:focus {
   top: 3rem;
 }
 .item-labels {
-  margin-left: 1rem;
+  margin-left: 2rem;
   display: grid;
 }
 .todo-label {
