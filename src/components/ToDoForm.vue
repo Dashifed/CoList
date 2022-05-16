@@ -96,8 +96,7 @@ export default {
   align-items: stretch;
   justify-content: space-between;
 }
-.input-lg,
-.input-lg:focus {
+.input-lg {
   width: 50vw;
   border: medium none;
   margin-bottom: 10px;

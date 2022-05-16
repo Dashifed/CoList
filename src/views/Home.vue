@@ -1,12 +1,15 @@
 <template>
   <div>
     <app-navigation></app-navigation>
-    <modal ref="listModal">
+    <modal ref="taskModal">
       <template v-slot:header>
-        <h1>Create a new list</h1>
+        <h1>Create a new task</h1>
       </template>
       <template v-slot:body>
-        <list-form @list-added="createList"></list-form> </template
+        <to-do-form
+          @todo-added="addToDo"
+          class="parent"
+        ></to-do-form> </template
     ></modal>
     <modal ref="errorModal">
       <template v-slot:body>
@@ -77,14 +80,12 @@ import { bus } from "../main";
 import Modal from "../components/Modal";
 import ToDo from "../components/ToDo.vue";
 import ToDoForm from "../components/ToDoForm.vue";
-import ListForm from "../components/ListForm.vue";
 import AppNavigation from "../components/AppNavigation.vue";
 export default {
   components: {
     ToDo,
     ToDoForm,
     AppNavigation,
-    ListForm,
     Modal,
   },
   data() {
@@ -143,10 +144,10 @@ export default {
             (this.listError = error.response.data.error)
           )
         );
-      this.$refs.listModal.closeModal();
+      this.$refs.taskModal.closeModal();
     },
-    createListOption() {
-      this.$refs.listModal.openModal();
+    createTaskOption() {
+      this.$refs.taskModal.openModal();
     },
   },
   computed: {
@@ -164,10 +165,10 @@ export default {
         this.ToDoItems = response.data;
       })
       .catch((error) => console.log(error.response));
-    bus.$on("quickAction", this.createListOption);
+    bus.$on("quickAction", this.createTaskOption);
   },
   beforeDestroy() {
-    bus.$off("quickAction", this.createListOption);
+    bus.$off("quickAction", this.createTaskOption);
   },
 };
 </script>
@@ -192,6 +193,9 @@ input {
   font-weight: 600;
   color: #42b983;
   text-decoration: none;
+}
+.parent > .form-holder > .input-lg {
+  width: initial;
 }
 .custom-checkbox {
   margin-right: 1rem;
