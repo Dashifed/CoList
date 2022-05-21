@@ -45,8 +45,7 @@ export default {
           )
           .then(() => {
             this.$emit("item-edited", this.newLabel);
-          })
-          .catch((error) => console.log(error.response));
+          });
       }
     },
     onCancel() {

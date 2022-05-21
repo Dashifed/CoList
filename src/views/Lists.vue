@@ -123,15 +123,13 @@ export default {
           },
           this.$config
         )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           return this.$axios
             .get(`${this.$baseUrl}/api/lists`, this.$config)
             .then((response) => {
               this.Lists = response.data;
               this.emptyLists = false;
-            })
-            .catch((error) => console.log(error.response));
+            });
         })
         .catch(
           (error) => (
@@ -167,8 +165,7 @@ export default {
         if (!this.Lists.length) {
           this.emptyLists = true;
         }
-      })
-      .catch((error) => console.log(error.response));
+      });
     bus.$on("quickAction", this.createListOption);
   },
   beforeDestroy() {
@@ -219,6 +216,7 @@ body {
   width: 100%;
   display: flex;
   cursor: pointer;
+  color: black;
   background-color: transparent;
   background-image: none;
   -webkit-appearance: button;

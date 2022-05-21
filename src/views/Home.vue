@@ -110,11 +110,7 @@ export default {
             .get(`${this.$baseUrl}/api/notes`, this.$config)
             .then((response) => {
               this.ToDoItems = response.data;
-            })
-            .catch((error) => console.log(error.response));
-        })
-        .catch((error) => {
-          console.log(error);
+            });
         });
     },
     updateDoneStatus(toDoId) {
@@ -163,8 +159,7 @@ export default {
       .get(`${this.$baseUrl}/api/notes`, this.$config)
       .then((response) => {
         this.ToDoItems = response.data;
-      })
-      .catch((error) => console.log(error.response));
+      });
     bus.$on("quickAction", this.createTaskOption);
   },
   beforeDestroy() {

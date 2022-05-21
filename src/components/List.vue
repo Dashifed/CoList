@@ -112,17 +112,12 @@ export default {
           },
           this.$config
         )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           return this.$axios
             .get(`${this.$baseUrl}/api/notes`, this.$config)
             .then((response) => {
               this.ToDoItems = response.data;
-            })
-            .catch((error) => console.log(error.response));
-        })
-        .catch((error) => {
-          console.log(error);
+            });
         });
     },
     updateDoneStatus(toDoId) {
@@ -157,8 +152,7 @@ export default {
       .get(`${this.$baseUrl}/api/notes`, this.$config)
       .then((response) => {
         this.ToDoItems = response.data;
-      })
-      .catch((error) => console.log(error.response));
+      });
   },
 };
 </script>

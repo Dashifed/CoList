@@ -92,8 +92,7 @@ export default {
         .then(() => {
           this.menu_open = false;
           this.$emit("remove");
-        })
-        .catch((error) => console.log(error.response));
+        });
     },
     toggleToDoEdit() {
       this.isEditing = true;
@@ -113,8 +112,7 @@ export default {
         )
         .then(() => {
           this.$emit("checkbox-changed");
-        })
-        .catch((error) => console.log(error.response));
+        });
     },
     editCancelled() {
       this.isEditing = false;
